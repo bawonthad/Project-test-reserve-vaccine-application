@@ -1,0 +1,2058 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1 (Python 3.11.0 on win32)" generated="20230823 10:10:55.119" rpa="false" schemaversion="4">
+<suite id="s1" name="Project" source="C:\Users\ASUS\Desktop\Project">
+<suite id="s1-s1" name="Code" source="C:\Users\ASUS\Desktop\Project\Code">
+<suite id="s1-s1-s1" name="TC04 ReserveVaccine" source="C:\Users\ASUS\Desktop\Project\Code\TC04_ReserveVaccine.robot">
+<test id="s1-s1-s1-t1" name="TC04_ReserveVaccine" line="7">
+<kw name="Open Excel Document" library="ExcelLibrary">
+<arg>Test data/TC04_ReserveVaccine.xlsx</arg>
+<arg>doc_id=Test data</arg>
+<doc>Opens xlsx document file.</doc>
+<status status="PASS" starttime="20230823 10:10:55.724" endtime="20230823 10:10:55.732"/>
+</kw>
+<kw name="Get Sheet" library="ExcelLibrary">
+<var>${excel}</var>
+<arg>Test data</arg>
+<doc>Returns a page from the current document.</doc>
+<msg timestamp="20230823 10:10:55.733" level="INFO">${excel} = &lt;Worksheet "Test data"&gt;</msg>
+<status status="PASS" starttime="20230823 10:10:55.733" endtime="20230823 10:10:55.733"/>
+</kw>
+<for flavor="IN RANGE">
+<var>${x}</var>
+<value>2</value>
+<value>${excel.max_row+1}</value>
+<iter>
+<var name="${x}">2</var>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${status}</var>
+<arg>"${excel.cell(${x},2).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},2).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:10:55.737" level="INFO">${status} = Y</msg>
+<status status="PASS" starttime="20230823 10:10:55.736" endtime="20230823 10:10:55.737"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;Y&quot;">
+<kw name="Set Variable If" library="BuiltIn">
+<var>${TDID}</var>
+<arg>"${excel.cell(${x},1).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},1).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:10:55.738" level="INFO">${TDID} = TD1</msg>
+<status status="PASS" starttime="20230823 10:10:55.737" endtime="20230823 10:10:55.739"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Testing is ${tdid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230823 10:10:55.739" endtime="20230823 10:10:55.740"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Username}</var>
+<arg>"${excel.cell(${x},3).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},3).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:10:55.742" level="INFO">${Username} = 1709800373243</msg>
+<status status="PASS" starttime="20230823 10:10:55.740" endtime="20230823 10:10:55.742"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Password}</var>
+<arg>"${excel.cell(${x},4).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},4).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:10:55.743" level="INFO">${Password} = 26122001</msg>
+<status status="PASS" starttime="20230823 10:10:55.742" endtime="20230823 10:10:55.744"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Vaccine name}</var>
+<arg>"${excel.cell(${x},5).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},5).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:10:55.746" level="INFO">${Vaccine name} = Moderna</msg>
+<status status="PASS" starttime="20230823 10:10:55.744" endtime="20230823 10:10:55.746"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Amount}</var>
+<arg>"${excel.cell(${x},6).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},6).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:10:55.747" level="INFO">${Amount} = 1</msg>
+<status status="PASS" starttime="20230823 10:10:55.746" endtime="20230823 10:10:55.747"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Confirm order}</var>
+<arg>"${excel.cell(${x},7).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},7).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:10:55.749" level="INFO">${Confirm order} = </msg>
+<status status="PASS" starttime="20230823 10:10:55.748" endtime="20230823 10:10:55.750"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${Expected result}</var>
+<arg>${excel.cell(${x},8).value}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230823 10:10:55.752" level="INFO">${Expected result} = กรุณาคลิกยืนยันข้อมูล</msg>
+<status status="PASS" starttime="20230823 10:10:55.750" endtime="20230823 10:10:55.752"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=%{ANDROID_PLATFORM_VERSION=9}</arg>
+<arg>appPackage=th.ac.mju.itsci.reservevaccine_project</arg>
+<arg>appActivity=.Login_page</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="PASS" starttime="20230823 10:10:55.752" endtime="20230823 10:11:04.509"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_user</arg>
+<arg>${username}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:04.510" level="INFO">Typing text '1709800373243' into text field 'txt_user'</msg>
+<msg timestamp="20230823 10:11:04.882" level="INFO">criteria is txt_user</msg>
+<status status="PASS" starttime="20230823 10:11:04.509" endtime="20230823 10:11:04.883"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_password</arg>
+<arg>${password}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:04.886" level="INFO">Typing text '26122001' into text field 'txt_password'</msg>
+<msg timestamp="20230823 10:11:05.427" level="INFO">criteria is txt_password</msg>
+<status status="PASS" starttime="20230823 10:11:04.883" endtime="20230823 10:11:05.427"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Clicklogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:05.429" level="INFO">Clicking element 'Clicklogin'.</msg>
+<msg timestamp="20230823 10:11:05.990" level="INFO">criteria is Clicklogin</msg>
+<status status="PASS" starttime="20230823 10:11:05.428" endtime="20230823 10:11:05.990"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<msg timestamp="20230823 10:11:07.080" level="INFO">criteria is android:id/button1
+criteria is android:id/button1</msg>
+<status status="PASS" starttime="20230823 10:11:05.990" endtime="20230823 10:11:07.081"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:07.084" level="INFO">Clicking element 'android:id/button1'.</msg>
+<msg timestamp="20230823 10:11:07.131" level="INFO">criteria is android:id/button1</msg>
+<status status="PASS" starttime="20230823 10:11:07.082" endtime="20230823 10:11:07.131"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<msg timestamp="20230823 10:11:08.084" level="INFO">criteria is Add_card
+criteria is Add_card</msg>
+<status status="PASS" starttime="20230823 10:11:07.132" endtime="20230823 10:11:08.084"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:08.086" level="INFO">Clicking element 'Add_card'.</msg>
+<msg timestamp="20230823 10:11:08.136" level="INFO">criteria is Add_card</msg>
+<status status="PASS" starttime="20230823 10:11:08.085" endtime="20230823 10:11:08.136"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<msg timestamp="20230823 10:11:08.984" level="INFO">criteria is select_VaccineList_item
+criteria is select_VaccineList_item</msg>
+<status status="PASS" starttime="20230823 10:11:08.136" endtime="20230823 10:11:08.984"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:08.986" level="INFO">Clicking element 'select_VaccineList_item'.</msg>
+<msg timestamp="20230823 10:11:09.035" level="INFO">criteria is select_VaccineList_item</msg>
+<status status="PASS" starttime="20230823 10:11:08.985" endtime="20230823 10:11:09.035"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:09.037" level="INFO">Clicking element 'android:id/text1'.</msg>
+<msg timestamp="20230823 10:11:10.473" level="INFO">criteria is android:id/text1</msg>
+<status status="PASS" starttime="20230823 10:11:09.035" endtime="20230823 10:11:10.473"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>spn_no</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:10.474" level="INFO">Clicking element 'spn_no'.</msg>
+<msg timestamp="20230823 10:11:10.527" level="INFO">criteria is spn_no</msg>
+<status status="PASS" starttime="20230823 10:11:10.473" endtime="20230823 10:11:10.527"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:10.529" level="INFO">Clicking element 'android:id/text1'.</msg>
+<msg timestamp="20230823 10:11:12.102" level="INFO">criteria is android:id/text1</msg>
+<status status="PASS" starttime="20230823 10:11:10.527" endtime="20230823 10:11:12.103"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Confirm order}&quot;==&quot;Checked&quot;">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>checkBox5</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:12.105" endtime="20230823 10:11:12.105"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:12.104" endtime="20230823 10:11:12.105"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:12.104" endtime="20230823 10:11:12.105"/>
+</if>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>btn_add_reserve</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:12.106" level="INFO">Clicking element 'btn_add_reserve'.</msg>
+<msg timestamp="20230823 10:11:12.146" level="INFO">criteria is btn_add_reserve</msg>
+<status status="PASS" starttime="20230823 10:11:12.105" endtime="20230823 10:11:12.148"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/message</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<msg timestamp="20230823 10:11:12.706" level="INFO">criteria is android:id/message
+criteria is android:id/message</msg>
+<status status="PASS" starttime="20230823 10:11:12.149" endtime="20230823 10:11:12.707"/>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${Real results}</var>
+<arg>android:id/message</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<msg timestamp="20230823 10:11:12.738" level="INFO">Element 'android:id/message' text is 'กรุณาคลิกยืนยันข้อมูล' </msg>
+<msg timestamp="20230823 10:11:12.739" level="INFO">criteria is android:id/message</msg>
+<msg timestamp="20230823 10:11:12.739" level="INFO">${Real results} = กรุณาคลิกยืนยันข้อมูล</msg>
+<status status="PASS" starttime="20230823 10:11:12.707" endtime="20230823 10:11:12.739"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Real results}&quot; == &quot;${Expected result}&quot;">
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="PASS" starttime="20230823 10:11:12.740" endtime="20230823 10:11:12.741"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Pass</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="PASS" starttime="20230823 10:11:12.741" endtime="20230823 10:11:12.742"/>
+</kw>
+<status status="PASS" starttime="20230823 10:11:12.739" endtime="20230823 10:11:12.742"/>
+</branch>
+<branch type="ELSE">
+<kw name="Take Screenshot" library="ScreenCapLibrary">
+<arg>Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png</arg>
+<doc>Takes a screenshot in the specified format at library import and
+embeds it into the log file (PNG by default).</doc>
+<status status="NOT RUN" starttime="20230823 10:11:12.743" endtime="20230823 10:11:12.743"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:12.743" endtime="20230823 10:11:12.743"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Fail</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:12.744" endtime="20230823 10:11:12.744"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>11</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:12.744" endtime="20230823 10:11:12.744"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:12.742" endtime="20230823 10:11:12.744"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:12.739" endtime="20230823 10:11:12.745"/>
+</if>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="PASS" starttime="20230823 10:11:12.745" endtime="20230823 10:11:13.029"/>
+</kw>
+<status status="PASS" starttime="20230823 10:10:55.737" endtime="20230823 10:11:13.030"/>
+</branch>
+<status status="PASS" starttime="20230823 10:10:55.737" endtime="20230823 10:11:13.030"/>
+</if>
+<status status="PASS" starttime="20230823 10:10:55.735" endtime="20230823 10:11:13.030"/>
+</iter>
+<iter>
+<var name="${x}">3</var>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${status}</var>
+<arg>"${excel.cell(${x},2).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},2).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.034" level="INFO">${status} = N</msg>
+<status status="PASS" starttime="20230823 10:11:13.031" endtime="20230823 10:11:13.034"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;Y&quot;">
+<kw name="Set Variable If" library="BuiltIn">
+<var>${TDID}</var>
+<arg>"${excel.cell(${x},1).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},1).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.036" endtime="20230823 10:11:13.036"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Testing is ${tdid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.036" endtime="20230823 10:11:13.037"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Username}</var>
+<arg>"${excel.cell(${x},3).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},3).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.037" endtime="20230823 10:11:13.038"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Password}</var>
+<arg>"${excel.cell(${x},4).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},4).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.038" endtime="20230823 10:11:13.038"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Vaccine name}</var>
+<arg>"${excel.cell(${x},5).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},5).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.038" endtime="20230823 10:11:13.038"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Amount}</var>
+<arg>"${excel.cell(${x},6).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},6).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.038" endtime="20230823 10:11:13.039"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Confirm order}</var>
+<arg>"${excel.cell(${x},7).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},7).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.039" endtime="20230823 10:11:13.039"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${Expected result}</var>
+<arg>${excel.cell(${x},8).value}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.039" endtime="20230823 10:11:13.039"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=%{ANDROID_PLATFORM_VERSION=9}</arg>
+<arg>appPackage=th.ac.mju.itsci.reservevaccine_project</arg>
+<arg>appActivity=.Login_page</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.039" endtime="20230823 10:11:13.040"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_user</arg>
+<arg>${username}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.040" endtime="20230823 10:11:13.040"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_password</arg>
+<arg>${password}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.040" endtime="20230823 10:11:13.040"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Clicklogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.040" endtime="20230823 10:11:13.041"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.041" endtime="20230823 10:11:13.041"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.041" endtime="20230823 10:11:13.041"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.041" endtime="20230823 10:11:13.042"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.042" endtime="20230823 10:11:13.042"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.042" endtime="20230823 10:11:13.042"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.043" endtime="20230823 10:11:13.043"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.043" endtime="20230823 10:11:13.043"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>spn_no</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.043" endtime="20230823 10:11:13.043"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.043" endtime="20230823 10:11:13.044"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Confirm order}&quot;==&quot;Checked&quot;">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>checkBox5</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.044" endtime="20230823 10:11:13.044"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.044" endtime="20230823 10:11:13.044"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:13.044" endtime="20230823 10:11:13.045"/>
+</if>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>btn_add_reserve</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.045" endtime="20230823 10:11:13.045"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/message</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.045" endtime="20230823 10:11:13.046"/>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${Real results}</var>
+<arg>android:id/message</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.046" endtime="20230823 10:11:13.046"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Real results}&quot; == &quot;${Expected result}&quot;">
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.047" endtime="20230823 10:11:13.047"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Pass</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.047" endtime="20230823 10:11:13.048"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.046" endtime="20230823 10:11:13.048"/>
+</branch>
+<branch type="ELSE">
+<kw name="Take Screenshot" library="ScreenCapLibrary">
+<arg>Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png</arg>
+<doc>Takes a screenshot in the specified format at library import and
+embeds it into the log file (PNG by default).</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.049" endtime="20230823 10:11:13.050"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.050" endtime="20230823 10:11:13.051"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Fail</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.051" endtime="20230823 10:11:13.051"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>11</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.051" endtime="20230823 10:11:13.052"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.048" endtime="20230823 10:11:13.052"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:13.046" endtime="20230823 10:11:13.052"/>
+</if>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.052" endtime="20230823 10:11:13.052"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.035" endtime="20230823 10:11:13.052"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:13.035" endtime="20230823 10:11:13.052"/>
+</if>
+<status status="PASS" starttime="20230823 10:11:13.030" endtime="20230823 10:11:13.052"/>
+</iter>
+<iter>
+<var name="${x}">4</var>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${status}</var>
+<arg>"${excel.cell(${x},2).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},2).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.054" level="INFO">${status} = N</msg>
+<status status="PASS" starttime="20230823 10:11:13.053" endtime="20230823 10:11:13.054"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;Y&quot;">
+<kw name="Set Variable If" library="BuiltIn">
+<var>${TDID}</var>
+<arg>"${excel.cell(${x},1).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},1).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.055" endtime="20230823 10:11:13.055"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Testing is ${tdid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.055" endtime="20230823 10:11:13.055"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Username}</var>
+<arg>"${excel.cell(${x},3).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},3).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.055" endtime="20230823 10:11:13.055"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Password}</var>
+<arg>"${excel.cell(${x},4).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},4).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.055" endtime="20230823 10:11:13.056"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Vaccine name}</var>
+<arg>"${excel.cell(${x},5).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},5).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.056" endtime="20230823 10:11:13.056"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Amount}</var>
+<arg>"${excel.cell(${x},6).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},6).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.056" endtime="20230823 10:11:13.056"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Confirm order}</var>
+<arg>"${excel.cell(${x},7).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},7).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.057" endtime="20230823 10:11:13.057"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${Expected result}</var>
+<arg>${excel.cell(${x},8).value}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.057" endtime="20230823 10:11:13.057"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=%{ANDROID_PLATFORM_VERSION=9}</arg>
+<arg>appPackage=th.ac.mju.itsci.reservevaccine_project</arg>
+<arg>appActivity=.Login_page</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.057" endtime="20230823 10:11:13.057"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_user</arg>
+<arg>${username}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.058" endtime="20230823 10:11:13.058"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_password</arg>
+<arg>${password}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.058" endtime="20230823 10:11:13.058"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Clicklogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.058" endtime="20230823 10:11:13.058"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.058" endtime="20230823 10:11:13.059"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.059" endtime="20230823 10:11:13.059"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.059" endtime="20230823 10:11:13.059"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.059" endtime="20230823 10:11:13.059"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.059" endtime="20230823 10:11:13.060"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.060" endtime="20230823 10:11:13.060"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.060" endtime="20230823 10:11:13.060"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>spn_no</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.061" endtime="20230823 10:11:13.061"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.061" endtime="20230823 10:11:13.061"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Confirm order}&quot;==&quot;Checked&quot;">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>checkBox5</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.062" endtime="20230823 10:11:13.062"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.062" endtime="20230823 10:11:13.062"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:13.061" endtime="20230823 10:11:13.062"/>
+</if>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>btn_add_reserve</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.063" endtime="20230823 10:11:13.063"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/message</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.063" endtime="20230823 10:11:13.063"/>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${Real results}</var>
+<arg>android:id/message</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.064" endtime="20230823 10:11:13.065"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Real results}&quot; == &quot;${Expected result}&quot;">
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.066" endtime="20230823 10:11:13.067"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Pass</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.067" endtime="20230823 10:11:13.067"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.065" endtime="20230823 10:11:13.068"/>
+</branch>
+<branch type="ELSE">
+<kw name="Take Screenshot" library="ScreenCapLibrary">
+<arg>Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png</arg>
+<doc>Takes a screenshot in the specified format at library import and
+embeds it into the log file (PNG by default).</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.068" endtime="20230823 10:11:13.068"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.068" endtime="20230823 10:11:13.069"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Fail</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.069" endtime="20230823 10:11:13.069"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>11</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.069" endtime="20230823 10:11:13.069"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.068" endtime="20230823 10:11:13.069"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:13.065" endtime="20230823 10:11:13.070"/>
+</if>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.070" endtime="20230823 10:11:13.070"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.054" endtime="20230823 10:11:13.070"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:13.054" endtime="20230823 10:11:13.070"/>
+</if>
+<status status="PASS" starttime="20230823 10:11:13.052" endtime="20230823 10:11:13.070"/>
+</iter>
+<iter>
+<var name="${x}">5</var>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${status}</var>
+<arg>"${excel.cell(${x},2).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},2).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.071" level="INFO">${status} = N</msg>
+<status status="PASS" starttime="20230823 10:11:13.070" endtime="20230823 10:11:13.072"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;Y&quot;">
+<kw name="Set Variable If" library="BuiltIn">
+<var>${TDID}</var>
+<arg>"${excel.cell(${x},1).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},1).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.072" endtime="20230823 10:11:13.073"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Testing is ${tdid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.073" endtime="20230823 10:11:13.073"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Username}</var>
+<arg>"${excel.cell(${x},3).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},3).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.073" endtime="20230823 10:11:13.073"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Password}</var>
+<arg>"${excel.cell(${x},4).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},4).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.073" endtime="20230823 10:11:13.074"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Vaccine name}</var>
+<arg>"${excel.cell(${x},5).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},5).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.074" endtime="20230823 10:11:13.074"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Amount}</var>
+<arg>"${excel.cell(${x},6).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},6).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.074" endtime="20230823 10:11:13.074"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Confirm order}</var>
+<arg>"${excel.cell(${x},7).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},7).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.074" endtime="20230823 10:11:13.075"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${Expected result}</var>
+<arg>${excel.cell(${x},8).value}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.075" endtime="20230823 10:11:13.075"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=%{ANDROID_PLATFORM_VERSION=9}</arg>
+<arg>appPackage=th.ac.mju.itsci.reservevaccine_project</arg>
+<arg>appActivity=.Login_page</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.075" endtime="20230823 10:11:13.075"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_user</arg>
+<arg>${username}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.075" endtime="20230823 10:11:13.076"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_password</arg>
+<arg>${password}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.076" endtime="20230823 10:11:13.076"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Clicklogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.076" endtime="20230823 10:11:13.076"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.076" endtime="20230823 10:11:13.076"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.076" endtime="20230823 10:11:13.077"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.077" endtime="20230823 10:11:13.077"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.077" endtime="20230823 10:11:13.077"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.077" endtime="20230823 10:11:13.077"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.078" endtime="20230823 10:11:13.078"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.078" endtime="20230823 10:11:13.078"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>spn_no</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.078" endtime="20230823 10:11:13.078"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.078" endtime="20230823 10:11:13.079"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Confirm order}&quot;==&quot;Checked&quot;">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>checkBox5</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.079" endtime="20230823 10:11:13.079"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.079" endtime="20230823 10:11:13.079"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:13.079" endtime="20230823 10:11:13.079"/>
+</if>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>btn_add_reserve</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.079" endtime="20230823 10:11:13.080"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/message</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.080" endtime="20230823 10:11:13.080"/>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${Real results}</var>
+<arg>android:id/message</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.080" endtime="20230823 10:11:13.081"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Real results}&quot; == &quot;${Expected result}&quot;">
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.081" endtime="20230823 10:11:13.081"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Pass</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.082" endtime="20230823 10:11:13.082"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.081" endtime="20230823 10:11:13.082"/>
+</branch>
+<branch type="ELSE">
+<kw name="Take Screenshot" library="ScreenCapLibrary">
+<arg>Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png</arg>
+<doc>Takes a screenshot in the specified format at library import and
+embeds it into the log file (PNG by default).</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.083" endtime="20230823 10:11:13.083"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.083" endtime="20230823 10:11:13.083"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Fail</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.083" endtime="20230823 10:11:13.083"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>11</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.083" endtime="20230823 10:11:13.084"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.082" endtime="20230823 10:11:13.084"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:13.081" endtime="20230823 10:11:13.084"/>
+</if>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:13.084" endtime="20230823 10:11:13.084"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:13.072" endtime="20230823 10:11:13.084"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:13.072" endtime="20230823 10:11:13.084"/>
+</if>
+<status status="PASS" starttime="20230823 10:11:13.070" endtime="20230823 10:11:13.084"/>
+</iter>
+<iter>
+<var name="${x}">6</var>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${status}</var>
+<arg>"${excel.cell(${x},2).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},2).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.086" level="INFO">${status} = Y</msg>
+<status status="PASS" starttime="20230823 10:11:13.085" endtime="20230823 10:11:13.087"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;Y&quot;">
+<kw name="Set Variable If" library="BuiltIn">
+<var>${TDID}</var>
+<arg>"${excel.cell(${x},1).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},1).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.089" level="INFO">${TDID} = TD5</msg>
+<status status="PASS" starttime="20230823 10:11:13.088" endtime="20230823 10:11:13.090"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Testing is ${tdid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230823 10:11:13.090" endtime="20230823 10:11:13.091"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Username}</var>
+<arg>"${excel.cell(${x},3).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},3).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.092" level="INFO">${Username} = 1709800373243</msg>
+<status status="PASS" starttime="20230823 10:11:13.091" endtime="20230823 10:11:13.092"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Password}</var>
+<arg>"${excel.cell(${x},4).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},4).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.094" level="INFO">${Password} = 26122001</msg>
+<status status="PASS" starttime="20230823 10:11:13.093" endtime="20230823 10:11:13.094"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Vaccine name}</var>
+<arg>"${excel.cell(${x},5).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},5).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.095" level="INFO">${Vaccine name} = Moderna</msg>
+<status status="PASS" starttime="20230823 10:11:13.094" endtime="20230823 10:11:13.095"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Amount}</var>
+<arg>"${excel.cell(${x},6).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},6).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.099" level="INFO">${Amount} = 1</msg>
+<status status="PASS" starttime="20230823 10:11:13.096" endtime="20230823 10:11:13.100"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Confirm order}</var>
+<arg>"${excel.cell(${x},7).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},7).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:13.102" level="INFO">${Confirm order} = Checked</msg>
+<status status="PASS" starttime="20230823 10:11:13.100" endtime="20230823 10:11:13.102"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${Expected result}</var>
+<arg>${excel.cell(${x},8).value}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230823 10:11:13.103" level="INFO">${Expected result} = สั่งจองวัคซีนสำเร็จ</msg>
+<status status="PASS" starttime="20230823 10:11:13.102" endtime="20230823 10:11:13.103"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=%{ANDROID_PLATFORM_VERSION=9}</arg>
+<arg>appPackage=th.ac.mju.itsci.reservevaccine_project</arg>
+<arg>appActivity=.Login_page</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="PASS" starttime="20230823 10:11:13.104" endtime="20230823 10:11:20.780"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_user</arg>
+<arg>${username}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:20.782" level="INFO">Typing text '1709800373243' into text field 'txt_user'</msg>
+<msg timestamp="20230823 10:11:21.159" level="INFO">criteria is txt_user</msg>
+<status status="PASS" starttime="20230823 10:11:20.781" endtime="20230823 10:11:21.160"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_password</arg>
+<arg>${password}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:21.162" level="INFO">Typing text '26122001' into text field 'txt_password'</msg>
+<msg timestamp="20230823 10:11:22.192" level="INFO">criteria is txt_password</msg>
+<status status="PASS" starttime="20230823 10:11:21.160" endtime="20230823 10:11:22.192"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Clicklogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:22.194" level="INFO">Clicking element 'Clicklogin'.</msg>
+<msg timestamp="20230823 10:11:22.753" level="INFO">criteria is Clicklogin</msg>
+<status status="PASS" starttime="20230823 10:11:22.192" endtime="20230823 10:11:22.754"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<msg timestamp="20230823 10:11:23.731" level="INFO">criteria is android:id/button1</msg>
+<status status="PASS" starttime="20230823 10:11:22.755" endtime="20230823 10:11:23.732"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:23.733" level="INFO">Clicking element 'android:id/button1'.</msg>
+<msg timestamp="20230823 10:11:23.771" level="INFO">criteria is android:id/button1</msg>
+<status status="PASS" starttime="20230823 10:11:23.732" endtime="20230823 10:11:23.772"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<msg timestamp="20230823 10:11:24.669" level="INFO">criteria is Add_card
+criteria is Add_card</msg>
+<status status="PASS" starttime="20230823 10:11:23.772" endtime="20230823 10:11:24.669"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:24.671" level="INFO">Clicking element 'Add_card'.</msg>
+<msg timestamp="20230823 10:11:24.718" level="INFO">criteria is Add_card</msg>
+<status status="PASS" starttime="20230823 10:11:24.669" endtime="20230823 10:11:24.719"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<msg timestamp="20230823 10:11:25.536" level="INFO">criteria is select_VaccineList_item
+criteria is select_VaccineList_item</msg>
+<status status="PASS" starttime="20230823 10:11:24.719" endtime="20230823 10:11:25.536"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:25.538" level="INFO">Clicking element 'select_VaccineList_item'.</msg>
+<msg timestamp="20230823 10:11:25.579" level="INFO">criteria is select_VaccineList_item</msg>
+<status status="PASS" starttime="20230823 10:11:25.536" endtime="20230823 10:11:25.580"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:25.582" level="INFO">Clicking element 'android:id/text1'.</msg>
+<msg timestamp="20230823 10:11:27.037" level="INFO">criteria is android:id/text1</msg>
+<status status="PASS" starttime="20230823 10:11:25.580" endtime="20230823 10:11:27.037"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>spn_no</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:27.039" level="INFO">Clicking element 'spn_no'.</msg>
+<msg timestamp="20230823 10:11:27.078" level="INFO">criteria is spn_no</msg>
+<status status="PASS" starttime="20230823 10:11:27.037" endtime="20230823 10:11:27.079"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:27.081" level="INFO">Clicking element 'android:id/text1'.</msg>
+<msg timestamp="20230823 10:11:28.556" level="INFO">criteria is android:id/text1</msg>
+<status status="PASS" starttime="20230823 10:11:27.079" endtime="20230823 10:11:28.556"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Confirm order}&quot;==&quot;Checked&quot;">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>checkBox5</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:28.559" level="INFO">Clicking element 'checkBox5'.</msg>
+<msg timestamp="20230823 10:11:28.592" level="INFO">criteria is checkBox5</msg>
+<status status="PASS" starttime="20230823 10:11:28.558" endtime="20230823 10:11:28.593"/>
+</kw>
+<status status="PASS" starttime="20230823 10:11:28.557" endtime="20230823 10:11:28.593"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:28.556" endtime="20230823 10:11:28.593"/>
+</if>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>btn_add_reserve</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20230823 10:11:28.595" level="INFO">Clicking element 'btn_add_reserve'.</msg>
+<msg timestamp="20230823 10:11:29.119" level="INFO">criteria is btn_add_reserve</msg>
+<status status="PASS" starttime="20230823 10:11:28.593" endtime="20230823 10:11:29.119"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/message</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<msg timestamp="20230823 10:11:29.813" level="INFO">criteria is android:id/message
+criteria is android:id/message</msg>
+<status status="PASS" starttime="20230823 10:11:29.120" endtime="20230823 10:11:29.814"/>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${Real results}</var>
+<arg>android:id/message</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<msg timestamp="20230823 10:11:29.853" level="INFO">Element 'android:id/message' text is 'สั่งจองวัคซีนสำเร็จ' </msg>
+<msg timestamp="20230823 10:11:29.854" level="INFO">criteria is android:id/message</msg>
+<msg timestamp="20230823 10:11:29.854" level="INFO">${Real results} = สั่งจองวัคซีนสำเร็จ</msg>
+<status status="PASS" starttime="20230823 10:11:29.814" endtime="20230823 10:11:29.854"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Real results}&quot; == &quot;${Expected result}&quot;">
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="PASS" starttime="20230823 10:11:29.855" endtime="20230823 10:11:29.856"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Pass</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="PASS" starttime="20230823 10:11:29.856" endtime="20230823 10:11:29.857"/>
+</kw>
+<status status="PASS" starttime="20230823 10:11:29.854" endtime="20230823 10:11:29.858"/>
+</branch>
+<branch type="ELSE">
+<kw name="Take Screenshot" library="ScreenCapLibrary">
+<arg>Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png</arg>
+<doc>Takes a screenshot in the specified format at library import and
+embeds it into the log file (PNG by default).</doc>
+<status status="NOT RUN" starttime="20230823 10:11:29.858" endtime="20230823 10:11:29.858"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:29.858" endtime="20230823 10:11:29.858"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Fail</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:29.859" endtime="20230823 10:11:29.859"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>11</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:29.859" endtime="20230823 10:11:29.859"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:29.858" endtime="20230823 10:11:29.859"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:29.854" endtime="20230823 10:11:29.859"/>
+</if>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="PASS" starttime="20230823 10:11:29.859" endtime="20230823 10:11:30.125"/>
+</kw>
+<status status="PASS" starttime="20230823 10:11:13.087" endtime="20230823 10:11:30.125"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:13.087" endtime="20230823 10:11:30.125"/>
+</if>
+<status status="PASS" starttime="20230823 10:11:13.084" endtime="20230823 10:11:30.125"/>
+</iter>
+<iter>
+<var name="${x}">7</var>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${status}</var>
+<arg>"${excel.cell(${x},2).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},2).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:30.127" level="INFO">${status} = N</msg>
+<status status="PASS" starttime="20230823 10:11:30.125" endtime="20230823 10:11:30.127"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;Y&quot;">
+<kw name="Set Variable If" library="BuiltIn">
+<var>${TDID}</var>
+<arg>"${excel.cell(${x},1).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},1).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.128" endtime="20230823 10:11:30.128"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Testing is ${tdid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.128" endtime="20230823 10:11:30.129"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Username}</var>
+<arg>"${excel.cell(${x},3).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},3).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.129" endtime="20230823 10:11:30.129"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Password}</var>
+<arg>"${excel.cell(${x},4).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},4).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.129" endtime="20230823 10:11:30.130"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Vaccine name}</var>
+<arg>"${excel.cell(${x},5).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},5).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.130" endtime="20230823 10:11:30.130"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Amount}</var>
+<arg>"${excel.cell(${x},6).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},6).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.131" endtime="20230823 10:11:30.131"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Confirm order}</var>
+<arg>"${excel.cell(${x},7).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},7).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.131" endtime="20230823 10:11:30.132"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${Expected result}</var>
+<arg>${excel.cell(${x},8).value}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.132" endtime="20230823 10:11:30.132"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=%{ANDROID_PLATFORM_VERSION=9}</arg>
+<arg>appPackage=th.ac.mju.itsci.reservevaccine_project</arg>
+<arg>appActivity=.Login_page</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.133" endtime="20230823 10:11:30.133"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_user</arg>
+<arg>${username}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.133" endtime="20230823 10:11:30.134"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_password</arg>
+<arg>${password}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.134" endtime="20230823 10:11:30.134"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Clicklogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.134" endtime="20230823 10:11:30.135"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.135" endtime="20230823 10:11:30.135"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.135" endtime="20230823 10:11:30.135"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.136" endtime="20230823 10:11:30.136"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.136" endtime="20230823 10:11:30.136"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.136" endtime="20230823 10:11:30.137"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.137" endtime="20230823 10:11:30.137"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.137" endtime="20230823 10:11:30.137"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>spn_no</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.137" endtime="20230823 10:11:30.138"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.138" endtime="20230823 10:11:30.138"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Confirm order}&quot;==&quot;Checked&quot;">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>checkBox5</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.138" endtime="20230823 10:11:30.138"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.138" endtime="20230823 10:11:30.139"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:30.138" endtime="20230823 10:11:30.139"/>
+</if>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>btn_add_reserve</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.139" endtime="20230823 10:11:30.139"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/message</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.139" endtime="20230823 10:11:30.139"/>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${Real results}</var>
+<arg>android:id/message</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.139" endtime="20230823 10:11:30.139"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Real results}&quot; == &quot;${Expected result}&quot;">
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.140" endtime="20230823 10:11:30.140"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Pass</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.140" endtime="20230823 10:11:30.140"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.140" endtime="20230823 10:11:30.140"/>
+</branch>
+<branch type="ELSE">
+<kw name="Take Screenshot" library="ScreenCapLibrary">
+<arg>Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png</arg>
+<doc>Takes a screenshot in the specified format at library import and
+embeds it into the log file (PNG by default).</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.141" endtime="20230823 10:11:30.141"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.141" endtime="20230823 10:11:30.141"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Fail</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.141" endtime="20230823 10:11:30.141"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>11</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.142" endtime="20230823 10:11:30.142"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.140" endtime="20230823 10:11:30.142"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:30.139" endtime="20230823 10:11:30.142"/>
+</if>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.142" endtime="20230823 10:11:30.142"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.127" endtime="20230823 10:11:30.142"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:30.127" endtime="20230823 10:11:30.142"/>
+</if>
+<status status="PASS" starttime="20230823 10:11:30.125" endtime="20230823 10:11:30.143"/>
+</iter>
+<iter>
+<var name="${x}">8</var>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${status}</var>
+<arg>"${excel.cell(${x},2).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},2).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:30.144" level="INFO">${status} = N</msg>
+<status status="PASS" starttime="20230823 10:11:30.143" endtime="20230823 10:11:30.144"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;Y&quot;">
+<kw name="Set Variable If" library="BuiltIn">
+<var>${TDID}</var>
+<arg>"${excel.cell(${x},1).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},1).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.145" endtime="20230823 10:11:30.145"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Testing is ${tdid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.145" endtime="20230823 10:11:30.146"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Username}</var>
+<arg>"${excel.cell(${x},3).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},3).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.146" endtime="20230823 10:11:30.146"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Password}</var>
+<arg>"${excel.cell(${x},4).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},4).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.146" endtime="20230823 10:11:30.146"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Vaccine name}</var>
+<arg>"${excel.cell(${x},5).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},5).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.146" endtime="20230823 10:11:30.146"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Amount}</var>
+<arg>"${excel.cell(${x},6).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},6).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.147" endtime="20230823 10:11:30.147"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Confirm order}</var>
+<arg>"${excel.cell(${x},7).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},7).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.147" endtime="20230823 10:11:30.147"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${Expected result}</var>
+<arg>${excel.cell(${x},8).value}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.147" endtime="20230823 10:11:30.147"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=%{ANDROID_PLATFORM_VERSION=9}</arg>
+<arg>appPackage=th.ac.mju.itsci.reservevaccine_project</arg>
+<arg>appActivity=.Login_page</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.147" endtime="20230823 10:11:30.147"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_user</arg>
+<arg>${username}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.148" endtime="20230823 10:11:30.148"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_password</arg>
+<arg>${password}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.148" endtime="20230823 10:11:30.148"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Clicklogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.149" endtime="20230823 10:11:30.149"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.149" endtime="20230823 10:11:30.149"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.150" endtime="20230823 10:11:30.150"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.150" endtime="20230823 10:11:30.150"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.151" endtime="20230823 10:11:30.151"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.151" endtime="20230823 10:11:30.151"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.151" endtime="20230823 10:11:30.151"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.152" endtime="20230823 10:11:30.152"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>spn_no</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.152" endtime="20230823 10:11:30.152"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.152" endtime="20230823 10:11:30.152"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Confirm order}&quot;==&quot;Checked&quot;">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>checkBox5</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.153" endtime="20230823 10:11:30.153"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.153" endtime="20230823 10:11:30.153"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:30.153" endtime="20230823 10:11:30.153"/>
+</if>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>btn_add_reserve</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.153" endtime="20230823 10:11:30.153"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/message</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.153" endtime="20230823 10:11:30.154"/>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${Real results}</var>
+<arg>android:id/message</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.154" endtime="20230823 10:11:30.154"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Real results}&quot; == &quot;${Expected result}&quot;">
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.154" endtime="20230823 10:11:30.154"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Pass</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.155" endtime="20230823 10:11:30.155"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.154" endtime="20230823 10:11:30.155"/>
+</branch>
+<branch type="ELSE">
+<kw name="Take Screenshot" library="ScreenCapLibrary">
+<arg>Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png</arg>
+<doc>Takes a screenshot in the specified format at library import and
+embeds it into the log file (PNG by default).</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.155" endtime="20230823 10:11:30.155"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.155" endtime="20230823 10:11:30.156"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Fail</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.156" endtime="20230823 10:11:30.156"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>11</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.156" endtime="20230823 10:11:30.156"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.155" endtime="20230823 10:11:30.156"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:30.154" endtime="20230823 10:11:30.156"/>
+</if>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.157" endtime="20230823 10:11:30.157"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.145" endtime="20230823 10:11:30.157"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:30.145" endtime="20230823 10:11:30.157"/>
+</if>
+<status status="PASS" starttime="20230823 10:11:30.143" endtime="20230823 10:11:30.157"/>
+</iter>
+<iter>
+<var name="${x}">9</var>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${status}</var>
+<arg>"${excel.cell(${x},2).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},2).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230823 10:11:30.158" level="INFO">${status} = N</msg>
+<status status="PASS" starttime="20230823 10:11:30.157" endtime="20230823 10:11:30.159"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${status}&quot; == &quot;Y&quot;">
+<kw name="Set Variable If" library="BuiltIn">
+<var>${TDID}</var>
+<arg>"${excel.cell(${x},1).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},1).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.159" endtime="20230823 10:11:30.159"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Testing is ${tdid}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.159" endtime="20230823 10:11:30.159"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Username}</var>
+<arg>"${excel.cell(${x},3).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},3).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.159" endtime="20230823 10:11:30.161"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Password}</var>
+<arg>"${excel.cell(${x},4).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},4).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.161" endtime="20230823 10:11:30.161"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Vaccine name}</var>
+<arg>"${excel.cell(${x},5).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},5).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.161" endtime="20230823 10:11:30.161"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Amount}</var>
+<arg>"${excel.cell(${x},6).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},6).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.161" endtime="20230823 10:11:30.162"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${Confirm order}</var>
+<arg>"${excel.cell(${x},7).value}" == "None"</arg>
+<arg>${EMPTY}</arg>
+<arg>${excel.cell(${x},7).value}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.162" endtime="20230823 10:11:30.162"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${Expected result}</var>
+<arg>${excel.cell(${x},8).value}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.162" endtime="20230823 10:11:30.162"/>
+</kw>
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://localhost:4723/wd/hub</arg>
+<arg>platformName=Android</arg>
+<arg>platformVersion=%{ANDROID_PLATFORM_VERSION=9}</arg>
+<arg>appPackage=th.ac.mju.itsci.reservevaccine_project</arg>
+<arg>appActivity=.Login_page</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.162" endtime="20230823 10:11:30.162"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_user</arg>
+<arg>${username}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.163" endtime="20230823 10:11:30.163"/>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>txt_password</arg>
+<arg>${password}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.163" endtime="20230823 10:11:30.163"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Clicklogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.163" endtime="20230823 10:11:30.163"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.163" endtime="20230823 10:11:30.163"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/button1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.163" endtime="20230823 10:11:30.163"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.163" endtime="20230823 10:11:30.163"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>Add_card</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.163" endtime="20230823 10:11:30.163"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.164" endtime="20230823 10:11:30.164"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>select_VaccineList_item</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.164" endtime="20230823 10:11:30.164"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.164" endtime="20230823 10:11:30.164"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>spn_no</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.164" endtime="20230823 10:11:30.164"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>android:id/text1</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.164" endtime="20230823 10:11:30.164"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Confirm order}&quot;==&quot;Checked&quot;">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>checkBox5</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.166" endtime="20230823 10:11:30.166"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.166" endtime="20230823 10:11:30.166"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:30.166" endtime="20230823 10:11:30.166"/>
+</if>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>btn_add_reserve</arg>
+<doc>Click element identified by `locator`.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.166" endtime="20230823 10:11:30.167"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="AppiumLibrary">
+<arg>android:id/message</arg>
+<doc>Waits until element specified with `locator` is visible.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.167" endtime="20230823 10:11:30.167"/>
+</kw>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${Real results}</var>
+<arg>android:id/message</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.168" endtime="20230823 10:11:30.168"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${Real results}&quot; == &quot;${Expected result}&quot;">
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.168" endtime="20230823 10:11:30.169"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Pass</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.169" endtime="20230823 10:11:30.169"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.168" endtime="20230823 10:11:30.169"/>
+</branch>
+<branch type="ELSE">
+<kw name="Take Screenshot" library="ScreenCapLibrary">
+<arg>Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png</arg>
+<doc>Takes a screenshot in the specified format at library import and
+embeds it into the log file (PNG by default).</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.169" endtime="20230823 10:11:30.170"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>9</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.170" endtime="20230823 10:11:30.170"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>10</arg>
+<arg>value=Fail</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.170" endtime="20230823 10:11:30.170"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>${x}</arg>
+<arg>11</arg>
+<arg>value=${Real results}</arg>
+<arg>sheet_name=Test data</arg>
+<doc>Writes value to the cell.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.170" endtime="20230823 10:11:30.170"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.169" endtime="20230823 10:11:30.170"/>
+</branch>
+<status status="NOT RUN" starttime="20230823 10:11:30.168" endtime="20230823 10:11:30.171"/>
+</if>
+<kw name="Close Application" library="AppiumLibrary">
+<doc>Closes the current application and also close webdriver session.</doc>
+<status status="NOT RUN" starttime="20230823 10:11:30.171" endtime="20230823 10:11:30.171"/>
+</kw>
+<status status="NOT RUN" starttime="20230823 10:11:30.159" endtime="20230823 10:11:30.171"/>
+</branch>
+<status status="PASS" starttime="20230823 10:11:30.159" endtime="20230823 10:11:30.171"/>
+</if>
+<status status="PASS" starttime="20230823 10:11:30.157" endtime="20230823 10:11:30.171"/>
+</iter>
+<status status="PASS" starttime="20230823 10:10:55.735" endtime="20230823 10:11:30.171"/>
+</for>
+<kw name="Save Excel Document" library="ExcelLibrary">
+<arg>Results/Excel/TC04_ReserveVaccine_Result.xlsx</arg>
+<doc>Saves the current document to disk.</doc>
+<status status="PASS" starttime="20230823 10:11:30.171" endtime="20230823 10:11:30.188"/>
+</kw>
+<status status="PASS" starttime="20230823 10:10:55.722" endtime="20230823 10:11:30.188"/>
+</test>
+<status status="PASS" starttime="20230823 10:10:55.151" endtime="20230823 10:11:30.190"/>
+</suite>
+<status status="PASS" starttime="20230823 10:10:55.146" endtime="20230823 10:11:30.192"/>
+</suite>
+<status status="PASS" starttime="20230823 10:10:55.123" endtime="20230823 10:11:30.195"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Project">Project</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Code">Project.Code</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1-s1" name="TC04 ReserveVaccine">Project.Code.TC04 ReserveVaccine</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
