@@ -17,14 +17,14 @@ ${DAY_LIST}           xpath=//android.view.View/android.view.View
 
 *** Test Cases ***
 TC08_EditVaccine
-    Start Video Recording    name=Video/TC08_EditVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
-    Open Excel Document    TestData/TC08_EditVaccine.xlsx    doc_id=TestData
-    ${excel}    Get Sheet    TestData
+    # Start Video Recording    name=Video/TC08_EditVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Open Excel Document    Test data/TC08_EditVaccine.xlsx    doc_id=Test data
+    ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
         ${status}    Set Variable If    "${excel.cell(${x},2).value}" == "None"    ${EMPTY}    ${excel.cell(${x},2).value}
         IF    "${status}" == "Y"
-            ${tdid}        Set Variable If    "${excel.cell(${x},1).value}" == "None"    ${EMPTY}    ${excel.cell(${x},1).value}    
-            Log To Console   Testing is ${tdid}
+            ${TDID}        Set Variable If    "${excel.cell(${x},1).value}" == "None"    ${EMPTY}    ${excel.cell(${x},1).value}    
+            Log To Console   Testing is ${TDID}
             ${Username}           Set Variable If    "${excel.cell(${x},3).value}" == "None"    ${EMPTY}    ${excel.cell(${x},3).value}
             ${Password}           Set Variable If    "${excel.cell(${x},4).value}" == "None"    ${EMPTY}    ${excel.cell(${x},4).value}
             ${VaccineName}        Set Variable If    "${excel.cell(${x},5).value}" == "None"    ${EMPTY}    ${excel.cell(${x},5).value}
@@ -48,22 +48,22 @@ TC08_EditVaccine
             Input Text    txt_user    ${username}
             Input Text    txt_password    ${password}
             Click Element    Clicklogin
-            Sleep    1s
+            Wait Until Element Is Visible    android:id/button1
             Click Element    android:id/button1
-            Sleep    1s
+            Wait Until Element Is Visible    Modify_card
             Click Element    Modify_card
-            Sleep    1s
+            Wait Until Element Is Visible    txtedit
             Click Element    txtedit    
-            Sleep    1s
+            Wait Until Element Is Visible    txtedit_Vname
             Clear Text    txtedit_Vname
             Clear Text    txtedit_Vname
             Input Text    txtedit_Vname     ${VaccineName}
             Click Element    txtedit_Vdate_Input
-            Select day    ${DateInDay}
+            Classify date    ${DateInDay}
             Click Element    txtedit_Vdate_mgf
-            Select day    ${MgfDateDay}
+            Classify date    ${MgfDateDay}
             Click Element    txtedit_Vdate_exp
-            Select day    ${ExpDateDay}
+            Classify date    ${ExpDateDay}
             Clear Text    edit_doesamount
             Input Text    edit_doesamount    ${DoesQty}
             Clear Text    edit_manufacturing_company
@@ -78,26 +78,29 @@ TC08_EditVaccine
             Clear Text    txtedit_doesPrice
             Input Text    txtedit_doesPrice    ${DoesPrice}
             Click Element    txtadd
-            Sleep    1s
-            ${Real Results}=    Get Text    android:id/message
-            IF    "${Real Results}" == "${Expected Result}"
-                Write Excel Cell    ${x}    16    value=Pass    sheet_name=TestData
+
+            Wait Until Element Is Visible    android:id/message
+            ${Real results}=    Get Text    android:id/message
+            IF    "${Real results}" == "${Expected result}"
+                Write Excel Cell    ${x}    16    value=${Real results}    sheet_name=Test data
+                Write Excel Cell    ${x}    17    value=Pass    sheet_name=Test data
             ELSE
-                Take Screenshot    Screenshot/${tdid}_Fail.png
-                Write Excel Cell    ${x}    16    value=Fail    sheet_name=TestData
-                Write Excel Cell    ${x}    17    value=${Real Results}    sheet_name=TestData
+                Take Screenshot    Screenshot/TC08_EditVaccine_Result/${TDID}_Fail.jpg
+                Write Excel Cell    ${x}    16    value=${Real results}    sheet_name=Test data
+                Write Excel Cell    ${x}    17    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    18    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
             END
             Close Application
         END
     END
     
     Save Excel Document    Results/Excel/TC08_EditVaccine_Result.xlsx
-    Stop Video Recording
+    # Stop Video Recording
 
 *** Keywords *** 
 Select day
     [Arguments]    ${date_come_in}
-    Sleep    1s
+    Wait Until Element Is Visible    ${HEADER_YEAR}
     ${CURR_YEAR}    Get Text    ${HEADER_YEAR}
     ${CURR_DATE}    Get Text    ${HEADER_DATE}
     Click Element    ${HEADER_YEAR}
@@ -134,9 +137,10 @@ Select day
                 ${date}=    Set Variable    ${res_content_desc}[0]
                 ${month}=    Set Variable    ${res_content_desc}[1]
                 ${num_month}=    Convert Month To Number    ${month}
-                IF    ${num_month} > ${TARGET_MONTH}
+                ${INT_TARGET_MONTH}=    Str To Int    ${TARGET_MONTH}
+                IF    ${num_month} > ${INT_TARGET_MONTH}
                     Click Element    ${PREV_BTN}
-                ELSE IF    ${num_month} < ${TARGET_MONTH}
+                ELSE IF    ${num_month} < ${INT_TARGET_MONTH}
                     Click Element    ${NEXT_BTN}
                 ELSE
                     ${days}    Get Webelements    ${DAY_LIST}
@@ -146,7 +150,6 @@ Select day
                         ${real_day}=    Set Variable    ${day_content_desc_arr}[0]
                         ${num_day}=    Str To Int    ${real_day}
                         IF    ${num_day} == ${TARGET_DAY}
-                            Sleep    1s
                             Click Element    ${day}
                             Exit For Loop
                         END
@@ -155,6 +158,20 @@ Select day
                 END
             END
 
-            Sleep    1s
+            Wait Until Element Is Visible    ${OK_YEAR_BTN}
             Click Element    ${OK_YEAR_BTN}
             Sleep    1s
+
+Classify date
+    [Arguments]    ${TypeDate}
+    IF  "${TypeDate}"=="วันในอดีต"
+        ${TypeDate}=    past_days
+    ELSE IF    "${TypeDate}"=="วันปัจจุบัน"
+        ${TypeDate}=    present_day
+    ELSE IF    "${TypeDate}"=="วันในอนาคต"
+        ${TypeDate}=    future_day
+    ELSE IF    "${TypeDate}"=="วันปัจจุบันหรือวันในอดีต และเป็นวันที่มากกว่าวันที่ผลิต และน้อยกว่าวันที่หมดอายุ"
+        ${TypeDate}=    present_day
+    END
+    Select day    ${TypeDate}
+    

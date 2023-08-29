@@ -17,14 +17,14 @@ ${DAY_LIST}           xpath=//android.view.View/android.view.View
 
 *** Test Cases ***
 TC07_AddVaccine
-    Start Video Recording    name=Video/TC07_AddVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
-    Open Excel Document    TestData/TC07_AddVaccine.xlsx    doc_id=TestData
-    ${excel}    Get Sheet    TestData
+    # Start Video Recording    name=Video/TC07_AddVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Open Excel Document    Test data/TC07_AddVaccine.xlsx    doc_id=Test data
+    ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
         ${status}    Set Variable If    "${excel.cell(${x},2).value}" == "None"    ${EMPTY}    ${excel.cell(${x},2).value}
         IF    "${status}" == "Y"
-            ${tdid}        Set Variable If    "${excel.cell(${x},1).value}" == "None"    ${EMPTY}    ${excel.cell(${x},1).value}    
-            Log To Console   Testing is ${tdid}
+            ${TDID}        Set Variable If    "${excel.cell(${x},1).value}" == "None"    ${EMPTY}    ${excel.cell(${x},1).value}    
+            Log To Console   Testing is ${TDID}
             ${Username}           Set Variable If    "${excel.cell(${x},3).value}" == "None"    ${EMPTY}    ${excel.cell(${x},3).value}
             ${Password}           Set Variable If    "${excel.cell(${x},4).value}" == "None"    ${EMPTY}    ${excel.cell(${x},4).value}
             ${VaccineName}        Set Variable If    "${excel.cell(${x},5).value}" == "None"    ${EMPTY}    ${excel.cell(${x},5).value}
@@ -37,7 +37,7 @@ TC07_AddVaccine
             ${ProductVersion}     Set Variable If    "${excel.cell(${x},12).value}" == "None"    ${EMPTY}    ${excel.cell(${x},12).value}
             ${RegisterNo}         Set Variable If    "${excel.cell(${x},13).value}" == "None"    ${EMPTY}    ${excel.cell(${x},13).value}
             ${DoesPrice}          Set Variable If    "${excel.cell(${x},14).value}" == "None"    ${EMPTY}    ${excel.cell(${x},14).value}
-            ${Expected Result}    Set Variable       ${excel.cell(${x},15).value}
+            ${Expected result}    Set Variable       ${excel.cell(${x},15).value}
 
             Open Application  http://localhost:4723/wd/hub    
             ...    platformName=Android  
@@ -54,14 +54,13 @@ TC07_AddVaccine
             Click Element    Add_card
             Wait Until Element Is Visible    txt_vcName
             Input Text    txt_vcName     ${VaccineName}
-
+            
             Click Element    date_in
-            
-            
+            Classify date    ${DateInDay}
             Click Element    mgf_date
-            Select day    ${MgfDateDay}
+            Classify date    ${MgfDateDay}
             Click Element    exp_date
-            Select day    ${ExpDateDay}
+            Classify date    ${ExpDateDay}
             Input Text    edit_does    ${DoesQty}
             Input Text    manufacturing_company    ${VaccineCompanny}
             Swipe By Percent    50    60    50    20    1000
@@ -72,20 +71,22 @@ TC07_AddVaccine
             Click Element    btn_addvaccine
             
             Wait Until Element Is Visible    android:id/message
-            ${Real Results}=    Get Text    android:id/message
-            IF    "${Real Results}" == "${Expected Result}"
-                Write Excel Cell    ${x}    16    value=Pass    sheet_name=TestData
+            ${Real results}=    Get Text    android:id/message
+            IF    "${Real results}" == "${Expected result}"
+                Write Excel Cell    ${x}    16    value=${Real results}    sheet_name=Test data
+                Write Excel Cell    ${x}    17    value=Pass    sheet_name=Test data
             ELSE
-                Take Screenshot    Screenshot/${tdid}_Fail.png
-                Write Excel Cell    ${x}    16    value=Fail    sheet_name=TestData
-                Write Excel Cell    ${x}    17    value=${Real Results}    sheet_name=TestData
+                Take Screenshot    Screenshot/TC07_AddVaccine_Result/${TDID}_Fail.jpg
+                Write Excel Cell    ${x}    16    value=${Real results}    sheet_name=Test data
+                Write Excel Cell    ${x}    17    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    18    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
             END
             Close Application
         END
     END
     
     Save Excel Document    Results/Excel/TC07_AddVaccine_Result.xlsx
-    Stop Video Recording
+    # Stop Video Recording
 
 *** Keywords *** 
 Select day
@@ -150,20 +151,18 @@ Select day
 
             Wait Until Element Is Visible    ${OK_YEAR_BTN}
             Click Element    ${OK_YEAR_BTN}
+            Sleep    1s
 
 Classify date
     [Arguments]    ${TypeDate}
     IF  "${TypeDate}"=="วันในอดีต"
-        ${past_days}=    past_days
-        Select day    ${past_days}
+        ${TypeDate}=    past_days
     ELSE IF    "${TypeDate}"=="วันปัจจุบัน"
-        ${present_day}=    present_day
-        Select day    ${present_day}
+        ${TypeDate}=    present_day
     ELSE IF    "${TypeDate}"=="วันในอนาคต"
-        ${future_day}=    future_day
-        Select day    ${future_day}
+        ${TypeDate}=    future_day
     ELSE IF    "${TypeDate}"=="วันปัจจุบันหรือวันในอดีต และเป็นวันที่มากกว่าวันที่ผลิต และน้อยกว่าวันที่หมดอายุ"
-        ${DateInDay}=    DateInDay
-        Select day    ${DateInDay}
+        ${TypeDate}=    present_day
     END
+    Select day    ${TypeDate}
     

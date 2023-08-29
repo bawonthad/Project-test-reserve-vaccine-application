@@ -33,11 +33,22 @@ TC04_ReserveVaccine
             Click Element    android:id/button1
             Wait Until Element Is Visible    Add_card
             Click Element    Add_card
+
             Wait Until Element Is Visible    select_VaccineList_item
             Click Element    select_VaccineList_item
-            Click Element    android:id/text1
+            Sleep    1s
+            IF  "${Vaccine name}"=="Moderna"
+                Click Element    //android.widget.TextView[1]
+            ELSE IF    "${Vaccine name}"=="Sinovac"
+                Click Element    //android.widget.TextView[2]
+            END
+            
             Click Element    spn_no
-            Click Element    android:id/text1
+            IF  "${Amount}"=="1"
+                Click Element    //android.widget.TextView[1]
+            ELSE IF    "${Amount}"=="2"
+                Click Element    //android.widget.TextView[2]
+            END
 
             IF  "${Confirm order}"=="Checked"
                 Click Element    checkBox5

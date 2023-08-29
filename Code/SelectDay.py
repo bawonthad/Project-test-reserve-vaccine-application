@@ -2,11 +2,6 @@ from datetime import date, timedelta
 
 class SelectDay:
     ROBOT_LIBRARY_SCOPE = 'TEST CASE'
-
-    def DateInDay(self):
-        DateInDay = date.today()+timedelta(days=1)
-        formattedday = DateInDay.strftime('%d/%m/%Y')
-        return formattedday
     
     def future_day(self):
         future_day = date.today()+timedelta(days=1)

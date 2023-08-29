@@ -169,3 +169,4 @@ Select day
 
             Wait Until Element Is Visible    ${OK_YEAR_BTN}
             Click Element    ${OK_YEAR_BTN}
+            Sleep    1s

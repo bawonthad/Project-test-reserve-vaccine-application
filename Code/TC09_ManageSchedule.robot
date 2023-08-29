@@ -18,19 +18,28 @@ ${DAY_LIST}           xpath=//android.view.View/android.view.View
 *** Test Cases ***
 TC09_ManageSchedule
     # Start Video Recording    name=Video/TC09_ManageSchedule  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
-    Open Excel Document    TestData/TC09_ManageSchedule.xlsx    doc_id=TestData
-    ${excel}    Get Sheet    TestData
+    Open Excel Document    Test data/TC09_ManageSchedule.xlsx    doc_id=Test data
+    ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
         ${status}    Set Variable If    "${excel.cell(${x},2).value}" == "None"    ${EMPTY}    ${excel.cell(${x},2).value}
         IF    "${status}" == "Y"
-            ${tdid}        Set Variable If    "${excel.cell(${x},1).value}" == "None"    ${EMPTY}    ${excel.cell(${x},1).value}    
-            Log To Console   Testing is ${tdid}
-            ${Username}           Set Variable If    "${excel.cell(${x},3).value}" == "None"    ${EMPTY}    ${excel.cell(${x},3).value}
-            ${Password}           Set Variable If    "${excel.cell(${x},4).value}" == "None"    ${EMPTY}    ${excel.cell(${x},4).value}
-            ${ScheduleDate}       Set Variable If    "${excel.cell(${x},5).value}" == "None"    ${EMPTY}    ${excel.cell(${x},5).value}
-            ${TimePeriod}         Set Variable If    "${excel.cell(${x},6).value}" == "None"    ${EMPTY}    ${excel.cell(${x},6).value}
-            ${AmountQueueDate}    Set Variable If    "${excel.cell(${x},7).value}" == "None"    ${EMPTY}    ${excel.cell(${x},7).value}
-            ${Expected result}    Set Variable       ${excel.cell(${x},8).value}
+            ${TDID}        Set Variable If    "${excel.cell(${x},1).value}" == "None"    ${EMPTY}    ${excel.cell(${x},1).value}    
+            Log To Console   Testing is ${TDID}
+            ${Username}                    Set Variable If    "${excel.cell(${x},3).value}" == "None"    ${EMPTY}    ${excel.cell(${x},3).value}
+            ${Password}                    Set Variable If    "${excel.cell(${x},4).value}" == "None"    ${EMPTY}    ${excel.cell(${x},4).value}
+            ${ScheduleDate}                Set Variable If    "${excel.cell(${x},5).value}" == "None"    ${EMPTY}    ${excel.cell(${x},5).value}
+            ${TimePeriod1}                 Set Variable If    "${excel.cell(${x},6).value}" == "None"    ${EMPTY}    ${excel.cell(${x},6).value}
+            ${TimePeriod2}                 Set Variable If    "${excel.cell(${x},7).value}" == "None"    ${EMPTY}    ${excel.cell(${x},7).value}
+            ${TimePeriod3}                 Set Variable If    "${excel.cell(${x},8).value}" == "None"    ${EMPTY}    ${excel.cell(${x},8).value}
+            ${TimePeriod4}                 Set Variable If    "${excel.cell(${x},9).value}" == "None"    ${EMPTY}    ${excel.cell(${x},9).value}
+            ${TimePeriod5}                 Set Variable If    "${excel.cell(${x},10).value}" == "None"    ${EMPTY}    ${excel.cell(${x},10).value}
+            ${ChannelInputAmount1}         Set Variable If    "${excel.cell(${x},11).value}" == "None"    ${EMPTY}    ${excel.cell(${x},11).value}
+            ${ChannelInputAmount2}         Set Variable If    "${excel.cell(${x},12).value}" == "None"    ${EMPTY}    ${excel.cell(${x},12).value}
+            ${ChannelInputAmount3}         Set Variable If    "${excel.cell(${x},13).value}" == "None"    ${EMPTY}    ${excel.cell(${x},13).value}
+            ${ChannelInputAmount4}         Set Variable If    "${excel.cell(${x},14).value}" == "None"    ${EMPTY}    ${excel.cell(${x},14).value}
+            ${ChannelInputAmount5}         Set Variable If    "${excel.cell(${x},15).value}" == "None"    ${EMPTY}    ${excel.cell(${x},15).value}
+            ${AmountQueueDate}             Set Variable If    "${excel.cell(${x},16).value}" == "None"    ${EMPTY}    ${excel.cell(${x},16).value}
+            ${Expected result}             Set Variable       ${excel.cell(${x},17).value}
 
             Open Application  http://localhost:4723/wd/hub    
             ...    platformName=Android  
@@ -41,35 +50,57 @@ TC09_ManageSchedule
             Input Text    txt_user    ${username}
             Input Text    txt_password    ${password}
             Click Element    Clicklogin
-            Sleep    1s
+            Wait Until Element Is Visible    android:id/button1
             Click Element    android:id/button1
-            Sleep    1s
+            Wait Until Element Is Visible    Viewall_card
             Click Element    Viewall_card
-            Sleep    1s
-            IF  "${ScheduleDate}"=="เลือกวันในอดีต"
-                ${day_minus_one}=    Get Current Date Minusone
-                Log To Console    ${day_minus_one}
-                Select day    ${day_minus_one}
-            ELSE IF    "${ScheduleDate}"=="เลือกวันอนาคต"
-                ${day_to_one}=    Get Current Date Plusone
-                Log To Console    ${day_to_one}
-                Select day    ${day_to_one}
+            
+            IF  "${ScheduleDate}"=="วันในอดีต"
+                ${TypeDate}=    past_days
+            ELSE IF    "${ScheduleDate}"=="วันปัจจุบัน"
+                ${TypeDate}=    present_day
+            ELSE IF    "${ScheduleDate}"=="วันในอนาคต"
+                ${TypeDate}=    future_day
+            END
+            Click Element    imageView5
+            Select day    ${TypeDate}
+            
+            IF  "${TimePeriod1}"=="Checked"
+                Click Element    t1
+            ELSE IF    "${TimePeriod2}"=="Checked"
+                Click Element    t2
+            ELSE IF    "${TimePeriod3}"=="Checked"
+                Click Element    t3
+            ELSE IF    "${TimePeriod4}"=="Checked"
+                Click Element    t4
+            ELSE IF    "${TimePeriod5}"=="Checked"
+                Click Element    t5
             END
             
-            IF  "${TimePeriod}"=="Check"
-                Click Element    t1
+            IF  "${ChannelInputAmount1}"=="InputText"
+                Input Text    edit_no_time1    ${AmountQueueDate}
+            ELSE IF    "${ChannelInputAmount2}"=="InputText"
+                Input Text    edit_no_time2    ${AmountQueueDate}
+            ELSE IF    "${ChannelInputAmount3}"=="InputText"
+                Input Text    edit_no_time3    ${AmountQueueDate}
+            ELSE IF    "${ChannelInputAmount4}"=="InputText"
+                Input Text    edit_no_time4    ${AmountQueueDate}
+            ELSE IF    "${ChannelInputAmount5}"=="InputText"
+                Input Text    edit_no_time5    ${AmountQueueDate}
             END
-            Input Text    edit_no_time1    ${AmountQueueDate}
-            Click Element    btn_add_schedule
-            Sleep    1s
 
+            Click Element    btn_add_schedule
+
+            Wait Until Element Is Visible    android:id/message
             ${Real results}=    Get Text    android:id/message
             IF    "${Real results}" == "${Expected result}"
-                Write Excel Cell    ${x}    9    value=Pass    sheet_name=TestData
+                Write Excel Cell    ${x}    18    value=${Real results}    sheet_name=Test data
+                Write Excel Cell    ${x}    19    value=Pass    sheet_name=Test data
             ELSE
-                Take Screenshot    Screenshot/${tdid}_Fail.png
-                Write Excel Cell    ${x}    9    value=Fail    sheet_name=TestData
-                Write Excel Cell    ${x}    10    value=${Real results}    sheet_name=TestData
+                Take Screenshot    Screenshot/TC09_ManageSchedule_Result/${TDID}_Fail.jpg
+                Write Excel Cell    ${x}    18    value=${Real results}    sheet_name=Test data
+                Write Excel Cell    ${x}    19    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    20    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
             END
             Close Application
         END
@@ -81,8 +112,7 @@ TC09_ManageSchedule
 *** Keywords *** 
 Select day
     [Arguments]    ${date_come_in}
-    Sleep    1s
-    Click Element    imageView5
+    Wait Until Element Is Visible    ${HEADER_YEAR}
     ${CURR_YEAR}    Get Text    ${HEADER_YEAR}
     ${CURR_DATE}    Get Text    ${HEADER_DATE}
     Click Element    ${HEADER_YEAR}
@@ -132,7 +162,6 @@ Select day
                         ${real_day}=    Set Variable    ${day_content_desc_arr}[0]
                         ${num_day}=    Str To Int    ${real_day}
                         IF    ${num_day} == ${TARGET_DAY}
-                            Sleep    1s
                             Click Element    ${day}
                             Exit For Loop
                         END
@@ -141,6 +170,6 @@ Select day
                 END
             END
 
-            Sleep    1s
+            Wait Until Element Is Visible    ${OK_YEAR_BTN}
             Click Element    ${OK_YEAR_BTN}
             Sleep    1s
