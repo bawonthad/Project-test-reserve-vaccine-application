@@ -58,17 +58,16 @@ TC01_Register
 
             Input Text    input_email    ${Email}
             Input Text    input_idcard    ${ID card}
-            
+            Click Element    input_brithday
             IF    "${Day}"=="เลือกปี (ปีปัจจุบัน -11)"
-                ${minus11years}=    minus11years
-                Select day    ${minus11years}
+                ${Day}=    minus11years
             ELSE IF    "${Day}"=="เลือกปี (ปีปัจจุบัน -12)"
-                ${minus12years}=    minus12years
-                Select day    ${minus12years}
+                ${Day}=    minus12years
             ELSE IF    "${Day}"=="เลือกปี (ปีปัจจุบัน -13)"
-                ${minus13years}=    minus13years
-                Select day    ${minus13years}
+                ${Day}=    minus13years
             END
+            Log To Console    ${Day}
+            Select day    ${Day}
             
             Wait Until Element Is Visible    bt_register
             Click Element    bt_register
@@ -87,14 +86,13 @@ TC01_Register
             Close Application
         END
     END
-    
+    Element Should Be Visible    android:id/message
     Save Excel Document    Results/Excel/TC01_Register_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording
 
 *** Keywords *** 
 Select day
     [Arguments]    ${date_come_in}
-    Click Element    input_brithday
     Wait Until Element Is Visible    ${HEADER_YEAR}
     ${CURR_YEAR}    Get Text    ${HEADER_YEAR}
     ${CURR_DATE}    Get Text    ${HEADER_DATE}
@@ -144,7 +142,8 @@ Select day
                         ${day_content_desc_arr}=    Split Str By Space    ${day_content_desc}
                         ${real_day}=    Set Variable    ${day_content_desc_arr}[0]
                         ${num_day}=    Str To Int    ${real_day}
-                        IF    ${num_day} == ${TARGET_DAY}
+                        ${TARGET_DAY_INT}=    Str To Int    ${TARGET_DAY}
+                        IF    ${num_day} == ${TARGET_DAY_INT}
                             Click Element    ${day}
                             Exit For Loop
                         END

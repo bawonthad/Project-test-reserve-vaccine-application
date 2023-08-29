@@ -33,10 +33,10 @@ class SelectDay:
         formattedday = minus13years.strftime('%d/%m/%Y')
         return formattedday
     
-        def get_current_date_minusone(self):
-            dayminusone = date.today() - timedelta(days=1)
-            formattedday = dayminusone.strftime('%d/%m/%Y')
-            return formattedday
+    def get_current_date_minusone(self):
+        dayminusone = date.today() - timedelta(days=1)
+        formattedday = dayminusone.strftime('%d/%m/%Y')
+        return formattedday
     
     def get_current_date(self):
         day = date.today()
