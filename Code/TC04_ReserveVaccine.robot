@@ -5,7 +5,7 @@ Library    ScreenCapLibrary
 
 *** Test Cases ***
 TC04_ReserveVaccine
-    # Start Video Recording    name=Video/TC04_ReserveVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC04_ReserveVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC04_ReserveVaccine.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -36,7 +36,7 @@ TC04_ReserveVaccine
 
             Wait Until Element Is Visible    select_VaccineList_item
             Click Element    select_VaccineList_item
-            Sleep    1s
+            Wait Until Element Is Visible    //android.widget.TextView[1]
             IF  "${Vaccine name}"=="Moderna"
                 Click Element    //android.widget.TextView[1]
             ELSE IF    "${Vaccine name}"=="Sinovac"
@@ -60,6 +60,7 @@ TC04_ReserveVaccine
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    9    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    10    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    11    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png
                 Write Excel Cell    ${x}    9    value=${Real results}    sheet_name=Test data
@@ -71,4 +72,4 @@ TC04_ReserveVaccine
     END
     
     Save Excel Document    Results/Excel/TC04_ReserveVaccine_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording

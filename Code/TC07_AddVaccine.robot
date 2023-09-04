@@ -17,7 +17,7 @@ ${DAY_LIST}           xpath=//android.view.View/android.view.View
 
 *** Test Cases ***
 TC07_AddVaccine
-    # Start Video Recording    name=Video/TC07_AddVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC07_AddVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC07_AddVaccine.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -55,12 +55,21 @@ TC07_AddVaccine
             Wait Until Element Is Visible    txt_vcName
             Input Text    txt_vcName     ${VaccineName}
             
-            Click Element    date_in
-            Classify date    ${DateInDay}
-            Click Element    mgf_date
-            Classify date    ${MgfDateDay}
-            Click Element    exp_date
-            Classify date    ${ExpDateDay}
+            IF  "${DateInDay}"!=""
+                Click Element    date_in
+                Classify date    ${DateInDay}
+            END
+            
+            IF  "${MgfDateDay}"!=""
+                Click Element    mgf_date
+                Classify date    ${MgfDateDay}
+            END
+
+            IF  "${ExpDateDay}"!=""
+                Click Element    exp_date
+                Classify date    ${ExpDateDay}
+            END
+            
             Input Text    edit_does    ${DoesQty}
             Input Text    manufacturing_company    ${VaccineCompanny}
             Swipe By Percent    50    60    50    20    1000
@@ -75,6 +84,7 @@ TC07_AddVaccine
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    16    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    17    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    18    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC07_AddVaccine_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    16    value=${Real results}    sheet_name=Test data
@@ -86,7 +96,7 @@ TC07_AddVaccine
     END
     
     Save Excel Document    Results/Excel/TC07_AddVaccine_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording
 
 *** Keywords *** 
 Select day
@@ -140,7 +150,8 @@ Select day
                         ${day_content_desc_arr}=    Split Str By Space    ${day_content_desc}
                         ${real_day}=    Set Variable    ${day_content_desc_arr}[0]
                         ${num_day}=    Str To Int    ${real_day}
-                        IF    ${num_day} == ${TARGET_DAY}
+                        ${TARGET_DAY_INT}=    Str To Int    ${TARGET_DAY}
+                        IF    ${num_day} == ${TARGET_DAY_INT}
                             Click Element    ${day}
                             Exit For Loop
                         END
@@ -163,6 +174,9 @@ Classify date
         ${TypeDate}=    future_day
     ELSE IF    "${TypeDate}"=="วันปัจจุบันหรือวันในอดีต และเป็นวันที่มากกว่าวันที่ผลิต และน้อยกว่าวันที่หมดอายุ"
         ${TypeDate}=    present_day
+    ELSE IF    "${TypeDate}"=="วันที่น้อยกว่าวันที่ผลิต"
+        ${TypeDate}=    less_MgfDateDay
+    ELSE IF    "${TypeDate}"=="วันที่มากกว่าวันที่หมดอายุ"
+        ${TypeDate}=    more_ExpDateDay
     END
     Select day    ${TypeDate}
-    

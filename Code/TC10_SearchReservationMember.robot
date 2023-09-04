@@ -5,7 +5,7 @@ Library    ScreenCapLibrary
 
 *** Test Cases ***
 TC10_SearchReservationMember
-    # Start Video Recording    name=Video/TC10_SearchReservationMember  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC10_SearchReservationMember  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC10_SearchReservationMember.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -64,6 +64,7 @@ TC10_SearchReservationMember
             IF    "${Real results}" == "${Expected result}"
                     Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
                     Write Excel Cell    ${x}    9    value=Pass    sheet_name=Test data
+                    Write Excel Cell    ${x}    10    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC10_SearchReservationMember_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
@@ -75,4 +76,4 @@ TC10_SearchReservationMember
     END
     
     Save Excel Document    Results/Excel/TC10_SearchReservationMember_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording

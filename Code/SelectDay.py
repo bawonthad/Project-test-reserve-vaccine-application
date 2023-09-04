@@ -3,8 +3,33 @@ from datetime import date, timedelta
 class SelectDay:
     ROBOT_LIBRARY_SCOPE = 'TEST CASE'
     
+    def element_should_be_selected(self, locator):
+        """Verifies that the element identified by `locator` is selected.
+
+        Arguments:
+        - `locator`: The locator of the element.
+
+        Example:
+        | Element Should Be Selected | xpath=//input[@type='checkbox'] |
+        """
+        element = self._element_find(locator, True, True)
+        if element.is_selected():
+            return True
+        else:
+            raise AssertionError(f"Element '{locator}' is not selected.")
+        
+    def more_ExpDateDay(self):
+        more_ExpDateDay = date.today() + timedelta(days=2)
+        formattedday = more_ExpDateDay.strftime('%d/%m/%Y')
+        return formattedday
+    
+    def less_MgfDateDay(self):
+        less_MgfDateDay = date.today() - timedelta(days=2)
+        formattedday = less_MgfDateDay.strftime('%d/%m/%Y')
+        return formattedday
+    
     def future_day(self):
-        future_day = date.today()+timedelta(days=1)
+        future_day = date.today() + timedelta(days=1)
         formattedday = future_day.strftime('%d/%m/%Y')
         return formattedday
 

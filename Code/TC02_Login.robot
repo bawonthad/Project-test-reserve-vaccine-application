@@ -5,7 +5,7 @@ Library    ScreenCapLibrary
 
 *** Test Cases ***
 TC02_Login
-    # Start Video Recording    name=Video/TC02_Login  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC02_Login  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC02_Login.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -32,6 +32,7 @@ TC02_Login
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    6    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    7    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    8    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC02_Login_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    6    value=${Real results}    sheet_name=Test data
@@ -43,4 +44,4 @@ TC02_Login
     END
     
     Save Excel Document    Results/Excel/TC02_Login_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording

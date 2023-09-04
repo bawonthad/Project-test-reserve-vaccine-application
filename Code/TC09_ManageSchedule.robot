@@ -62,30 +62,59 @@ TC09_ManageSchedule
             ELSE IF    "${ScheduleDate}"=="วันในอนาคต"
                 ${TypeDate}=    future_day
             END
+            Wait Until Element Is Visible    imageView5
             Click Element    imageView5
             Select day    ${TypeDate}
             
+            ${checkboxes} =    Get WebElements    xpath=//android.widget.CheckBox
+            FOR    ${checkbox}    IN    @{checkboxes}
+                    ${is_checked}=    Get Element Attribute    ${checkbox}    checked
+                    Run Keyword If    "${is_checked}"=="true"    Click Element    ${checkbox}
+            END
+
+            Clear Text    edit_no_time1
+            Clear Text    edit_no_time2
+            Clear Text    edit_no_time3
+            Clear Text    edit_no_time4
+            Clear Text    edit_no_time5
+
             IF  "${TimePeriod1}"=="Checked"
                 Click Element    t1
-            ELSE IF    "${TimePeriod2}"=="Checked"
+            END
+
+            IF  "${TimePeriod2}"=="Checked"
                 Click Element    t2
-            ELSE IF    "${TimePeriod3}"=="Checked"
+            END
+
+            IF  "${TimePeriod3}"=="Checked"
                 Click Element    t3
-            ELSE IF    "${TimePeriod4}"=="Checked"
+            END
+
+            IF  "${TimePeriod4}"=="Checked"
                 Click Element    t4
-            ELSE IF    "${TimePeriod5}"=="Checked"
+            END
+
+            IF  "${TimePeriod5}"=="Checked"
                 Click Element    t5
             END
-            
+
             IF  "${ChannelInputAmount1}"=="InputText"
                 Input Text    edit_no_time1    ${AmountQueueDate}
-            ELSE IF    "${ChannelInputAmount2}"=="InputText"
+            END
+
+            IF  "${ChannelInputAmount2}"=="InputText"
                 Input Text    edit_no_time2    ${AmountQueueDate}
-            ELSE IF    "${ChannelInputAmount3}"=="InputText"
+            END
+
+            IF  "${ChannelInputAmount3}"=="InputText"
                 Input Text    edit_no_time3    ${AmountQueueDate}
-            ELSE IF    "${ChannelInputAmount4}"=="InputText"
+            END
+
+            IF  "${ChannelInputAmount4}"=="InputText"
                 Input Text    edit_no_time4    ${AmountQueueDate}
-            ELSE IF    "${ChannelInputAmount5}"=="InputText"
+            END
+
+            IF  "${ChannelInputAmount5}"=="InputText"
                 Input Text    edit_no_time5    ${AmountQueueDate}
             END
 
@@ -96,6 +125,7 @@ TC09_ManageSchedule
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    18    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    19    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    20    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC09_ManageSchedule_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    18    value=${Real results}    sheet_name=Test data
@@ -107,7 +137,7 @@ TC09_ManageSchedule
     END
     
     Save Excel Document    Results/Excel/TC09_ManageSchedule_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording
 
 *** Keywords *** 
 Select day
@@ -161,7 +191,8 @@ Select day
                         ${day_content_desc_arr}=    Split Str By Space    ${day_content_desc}
                         ${real_day}=    Set Variable    ${day_content_desc_arr}[0]
                         ${num_day}=    Str To Int    ${real_day}
-                        IF    ${num_day} == ${TARGET_DAY}
+                        ${TARGET_DAY_INT}=    Str To Int    ${TARGET_DAY}
+                        IF    ${num_day} == ${TARGET_DAY_INT}
                             Click Element    ${day}
                             Exit For Loop
                         END
@@ -173,3 +204,4 @@ Select day
             Wait Until Element Is Visible    ${OK_YEAR_BTN}
             Click Element    ${OK_YEAR_BTN}
             Sleep    1s
+            

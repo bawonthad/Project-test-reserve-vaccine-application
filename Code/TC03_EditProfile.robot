@@ -17,7 +17,7 @@ ${DAY_LIST}           xpath=//android.view.View/android.view.View
 
 *** Test Cases ***
 TC03_EditProfile
-    # Start Video Recording    name=Video/TC03_EditProfile  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC03_EditProfile  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC03_EditProfile.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -72,17 +72,15 @@ TC03_EditProfile
             Input Text    input_email    ${Email}
             Clear Text    input_idcard
             Input Text    input_idcard    ${ID card}
-            
+            Click Element    input_brithday
             IF    "${Day}"=="เลือกปี (ปีปัจจุบัน -11)"
-                ${minus11years}=    minus11years
-                Select day    ${minus11years}
+                ${Day}=    minus11years
             ELSE IF    "${Day}"=="เลือกปี (ปีปัจจุบัน -12)"
-                ${minus12years}=    minus12years
-                Select day    ${minus12years}
+                ${Day}=    minus12years
             ELSE IF    "${Day}"=="เลือกปี (ปีปัจจุบัน -13)"
-                ${minus13years}=    minus13years
-                Select day    ${minus13years}
+                ${Day}=    minus13years
             END
+            Select day    ${Day}
             
             Wait Until Element Is Visible    bt_register
             Click Element    bt_register
@@ -92,6 +90,7 @@ TC03_EditProfile
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    14    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    15    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    16    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC03_EditProfile_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    14    value=${Real results}    sheet_name=Test data
@@ -103,12 +102,11 @@ TC03_EditProfile
     END
     
     Save Excel Document    Results/Excel/TC03_EditProfile_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording
 
-*** Keywords *** 
+*** Keywords ***
 Select day
     [Arguments]    ${date_come_in}
-    Click Element    input_brithday
     Wait Until Element Is Visible    ${HEADER_YEAR}
     ${CURR_YEAR}    Get Text    ${HEADER_YEAR}
     ${CURR_DATE}    Get Text    ${HEADER_DATE}
@@ -158,7 +156,8 @@ Select day
                         ${day_content_desc_arr}=    Split Str By Space    ${day_content_desc}
                         ${real_day}=    Set Variable    ${day_content_desc_arr}[0]
                         ${num_day}=    Str To Int    ${real_day}
-                        IF    ${num_day} == ${TARGET_DAY}
+                        ${TARGET_DAY_INT}=    Str To Int    ${TARGET_DAY}
+                        IF    ${num_day} == ${TARGET_DAY_INT}
                             Click Element    ${day}
                             Exit For Loop
                         END
@@ -170,3 +169,4 @@ Select day
             Wait Until Element Is Visible    ${OK_YEAR_BTN}
             Click Element    ${OK_YEAR_BTN}
             Sleep    1s
+            

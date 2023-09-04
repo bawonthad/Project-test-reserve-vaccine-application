@@ -17,7 +17,7 @@ ${DAY_LIST}           xpath=//android.view.View/android.view.View
 
 *** Test Cases ***
 TC01_Register
-    # Start Video Recording    name=Video/TC01_Register  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC01_Register  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC01_Register.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -66,7 +66,6 @@ TC01_Register
             ELSE IF    "${Day}"=="เลือกปี (ปีปัจจุบัน -13)"
                 ${Day}=    minus13years
             END
-            Log To Console    ${Day}
             Select day    ${Day}
             
             Wait Until Element Is Visible    bt_register
@@ -77,6 +76,7 @@ TC01_Register
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    12    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    13    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    14    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC01_Register_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    12    value=${Real results}    sheet_name=Test data
@@ -86,7 +86,6 @@ TC01_Register
             Close Application
         END
     END
-    Element Should Be Visible    android:id/message
     Save Excel Document    Results/Excel/TC01_Register_Result.xlsx
     Stop Video Recording
 

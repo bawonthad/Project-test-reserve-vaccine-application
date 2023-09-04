@@ -5,7 +5,7 @@ Library    ScreenCapLibrary
 
 *** Test Cases ***
 TC05_ConfirmPayment
-    # Start Video Recording    name=Video/TC05_ConfirmPayment  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC05_ConfirmPayment  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC05_ConfirmPayment.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -36,6 +36,7 @@ TC05_ConfirmPayment
             Wait Until Element Is Visible    btn_choosefile
             IF  "${File}"!=""
                 Click Element    btn_choosefile
+                Wait Until Element Is Visible    //*[@text="951 KB-JPG.jpg"]
                 File type    ${File}
             END
             
@@ -47,6 +48,7 @@ TC05_ConfirmPayment
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    7    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    8    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    9    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC05_ConfirmPayment_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    7    value=${Real results}    sheet_name=Test data
@@ -58,7 +60,7 @@ TC05_ConfirmPayment
     END
     
     Save Excel Document    Results/Excel/TC05_ConfirmPayment_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording
 
 *** Keywords ***
 File type

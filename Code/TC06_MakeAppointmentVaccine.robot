@@ -5,7 +5,7 @@ Library    ScreenCapLibrary
 
 *** Test Cases ***
 TC06_MakeAppointmentVaccine
-    # Start Video Recording    name=Video/TC06_MakeAppointmentVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC06_MakeAppointmentVaccine  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC06_MakeAppointmentVaccine.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -35,14 +35,16 @@ TC06_MakeAppointmentVaccine
             Wait Until Element Is Visible    button5
             Click Element    button5
 
+            Wait Until Element Is Visible    //*[@text="5"]
             IF  "${Date}"=="เลือกวันที่เป็นช่องสีขาว"
-                Click Element    //*[@text="29"]
+                Click Element    //*[@text="3"]
             ELSE IF    "${Date}"=="เลือกวันที่เป็นช่องสีแดง"
-                Click Element    //*[@text="30"]
+                Click Element    //*[@text="4"]
                 Click Element    btn_saveappointment
             ELSE IF    "${Date}"=="เลือกวันที่เป็นช่องสีเขียว"
-                Click Element    xpath=//android.widget.LinearLayout[5]/android.widget.RelativeLayout[4]
+                Click Element    //*[@text="5"]
                 IF  "${Time}"=="เลือกช่วงเวลา"
+                    Wait Until Element Is Visible    radioButton_time_1
                     Click Element    radioButton_time_1
                 END
                 Click Element    btn_saveappointment
@@ -54,7 +56,7 @@ TC06_MakeAppointmentVaccine
     END
     
     Save Excel Document    Results/Excel/TC06_MakeAppointmentVaccine_Result.xlsx
-    # Stop Video Recording
+    Stop Video Recording
 
 *** Keywords ***
 Write excel
@@ -64,9 +66,11 @@ Write excel
     IF    "${Real results}" == "${Expected result}"
         Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
         Write Excel Cell    ${x}    9    value=Pass    sheet_name=Test data
+        Write Excel Cell    ${x}    10    value=-    sheet_name=Test data
     ELSE
         Take Screenshot    Screenshot/TC01_Register_Result/${TDID}_Fail.jpg
         Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
         Write Excel Cell    ${x}    9    value=Fail    sheet_name=Test data
         Write Excel Cell    ${x}    10    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
     END
+    
