@@ -48,13 +48,13 @@ TC08_EditVaccine
             Input Text    txt_user    ${username}
             Input Text    txt_password    ${password}
             Click Element    Clicklogin
-            Wait Until Element Is Visible    android:id/button1
+            Wait Until Element Is Visible    android:id/button1    1m
             Click Element    android:id/button1
-            Wait Until Element Is Visible    Modify_card
+            Wait Until Element Is Visible    Modify_card    1m
             Click Element    Modify_card
-            Wait Until Element Is Visible    txtedit
+            Wait Until Element Is Visible    txtedit    1m
             Click Element    txtedit    
-            Wait Until Element Is Visible    txtedit_Vname
+            Wait Until Element Is Visible    txtedit_Vname    1m
             Clear Text    txtedit_Vname
             Clear Text    txtedit_Vname
             Input Text    txtedit_Vname     ${VaccineName}
@@ -89,17 +89,21 @@ TC08_EditVaccine
             Input Text    txtedit_doesPrice    ${DoesPrice}
             Click Element    txtadd
 
-            Wait Until Element Is Visible    android:id/message
+            Wait Until Element Is Visible    android:id/message    1m
             ${Real results}=    Get Text    android:id/message
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    16    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    17    value=Pass    sheet_name=Test data
-                Write Excel Cell    ${x}    18    value=-    sheet_name=Test data
+                Write Excel Cell    ${x}    18    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    19    value=No error    sheet_name=Test data
+                Write Excel Cell    ${x}    20    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC08_EditVaccine_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    16    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    17    value=Fail    sheet_name=Test data
-                Write Excel Cell    ${x}    18    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                Write Excel Cell    ${x}    18    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    19    value=Error    sheet_name=Test data
+                Write Excel Cell    ${x}    20    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
             END
             Close Application
         END
@@ -111,7 +115,7 @@ TC08_EditVaccine
 *** Keywords *** 
 Select day
     [Arguments]    ${date_come_in}
-    Wait Until Element Is Visible    ${HEADER_YEAR}
+    Wait Until Element Is Visible    ${HEADER_YEAR}    1m
     ${CURR_YEAR}    Get Text    ${HEADER_YEAR}
     ${CURR_DATE}    Get Text    ${HEADER_DATE}
     Click Element    ${HEADER_YEAR}
@@ -170,7 +174,7 @@ Select day
                 END
             END
 
-            Wait Until Element Is Visible    ${OK_YEAR_BTN}
+            Wait Until Element Is Visible    ${OK_YEAR_BTN}    1m
             Click Element    ${OK_YEAR_BTN}
             Sleep    1s
 

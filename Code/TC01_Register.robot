@@ -76,12 +76,16 @@ TC01_Register
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    12    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    13    value=Pass    sheet_name=Test data
-                Write Excel Cell    ${x}    14    value=-    sheet_name=Test data
+                Write Excel Cell    ${x}    14    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    15    value=No error    sheet_name=Test data
+                Write Excel Cell    ${x}    16    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC01_Register_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    12    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    13    value=Fail    sheet_name=Test data
-                Write Excel Cell    ${x}    14    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                Write Excel Cell    ${x}    14    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    15    value=Error    sheet_name=Test data
+                Write Excel Cell    ${x}    16    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
             END
             Close Application
         END

@@ -27,33 +27,37 @@ TC05_ConfirmPayment
             Input Text    txt_user    ${username}
             Input Text    txt_password    ${password}
             Click Element    Clicklogin
-            Wait Until Element Is Visible    android:id/button1
+            Wait Until Element Is Visible    android:id/button1    10s
             Click Element    android:id/button1
-            Wait Until Element Is Visible    Viewall_card
+            Wait Until Element Is Visible    Viewall_card    10s
             Click Element    Viewall_card
-            Wait Until Element Is Visible    btn_payment
+            Wait Until Element Is Visible    btn_payment    10s
             Click Element    btn_payment
-            Wait Until Element Is Visible    btn_choosefile
+            Wait Until Element Is Visible    btn_choosefile    10s
             IF  "${File}"!=""
                 Click Element    btn_choosefile
-                Wait Until Element Is Visible    //*[@text="951 KB-JPG.jpg"]
+                Wait Until Element Is Visible    //*[@text="951 KB-JPG.jpg"]    10s
                 File type    ${File}
             END
             
-            Wait Until Element Is Visible    btn_saverecipt
+            Wait Until Element Is Visible    btn_saverecipt    10s
             Click Element    btn_saverecipt
 
-            Wait Until Element Is Visible    android:id/message
+            Wait Until Element Is Visible    android:id/message    10s
             ${Real results}=    Get Text    android:id/message
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    7    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    8    value=Pass    sheet_name=Test data
-                Write Excel Cell    ${x}    9    value=-    sheet_name=Test data
+                Write Excel Cell    ${x}    9    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    10    value=No error    sheet_name=Test data
+                Write Excel Cell    ${x}    11    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC05_ConfirmPayment_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    7    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    8    value=Fail    sheet_name=Test data
-                Write Excel Cell    ${x}    9    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                Write Excel Cell    ${x}    9    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    10    value=Error    sheet_name=Test data
+                Write Excel Cell    ${x}    11    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
             END
             Close Application
         END

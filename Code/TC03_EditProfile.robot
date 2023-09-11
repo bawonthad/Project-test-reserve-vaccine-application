@@ -46,11 +46,11 @@ TC03_EditProfile
             Input Text    txt_user    ${username}
             Input Text    txt_password    ${password}
             Click Element    Clicklogin
-            Wait Until Element Is Visible    android:id/button1
+            Wait Until Element Is Visible    android:id/button1    10s
             Click Element    android:id/button1
-            Wait Until Element Is Visible    Modify_card
+            Wait Until Element Is Visible    Modify_card    10s
             Click Element    Modify_card
-            Wait Until Element Is Visible    input_name
+            Wait Until Element Is Visible    input_name    10s
             Clear Text    input_name
             Input Text    input_name    ${Name}
             Clear Text    input_lastname
@@ -82,20 +82,24 @@ TC03_EditProfile
             END
             Select day    ${Day}
             
-            Wait Until Element Is Visible    bt_register
+            Wait Until Element Is Visible    bt_register    10s
             Click Element    bt_register
 
-            Wait Until Element Is Visible    android:id/message
+            Wait Until Element Is Visible    android:id/message    10s
             ${Real results}=    Get Text    android:id/message
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    14    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    15    value=Pass    sheet_name=Test data
-                Write Excel Cell    ${x}    16    value=-    sheet_name=Test data
+                Write Excel Cell    ${x}    16    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    17    value=No error    sheet_name=Test data
+                Write Excel Cell    ${x}    18    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC03_EditProfile_Result/${TDID}_Fail.jpg
                 Write Excel Cell    ${x}    14    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    15    value=Fail    sheet_name=Test data
-                Write Excel Cell    ${x}    16    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                Write Excel Cell    ${x}    16    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    17    value=Error    sheet_name=Test data
+                Write Excel Cell    ${x}    18    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
             END
             Close Application
         END
@@ -107,7 +111,7 @@ TC03_EditProfile
 *** Keywords ***
 Select day
     [Arguments]    ${date_come_in}
-    Wait Until Element Is Visible    ${HEADER_YEAR}
+    Wait Until Element Is Visible    ${HEADER_YEAR}    10s
     ${CURR_YEAR}    Get Text    ${HEADER_YEAR}
     ${CURR_DATE}    Get Text    ${HEADER_DATE}
     Click Element    ${HEADER_YEAR}
@@ -166,7 +170,7 @@ Select day
                 END
             END
 
-            Wait Until Element Is Visible    ${OK_YEAR_BTN}
+            Wait Until Element Is Visible    ${OK_YEAR_BTN}    10s
             Click Element    ${OK_YEAR_BTN}
             Sleep    1s
             

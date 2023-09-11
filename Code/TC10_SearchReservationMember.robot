@@ -28,16 +28,16 @@ TC10_SearchReservationMember
             Input Text    txt_user    ${username}
             Input Text    txt_password    ${password}
             Click Element    Clicklogin
-            Wait Until Element Is Visible    android:id/button1
+            Wait Until Element Is Visible    android:id/button1    1m
             Click Element    android:id/button1
-            Wait Until Element Is Visible    Search_card
+            Wait Until Element Is Visible    Search_card    1m
             Click Element    Search_card
 
-            Wait Until Element Is Visible    spn_reserve_status
-            Sleep    1s
+            Wait Until Element Is Visible    spn_reserve_status    1m
+            Sleep    2s
             Click Element    spn_reserve_status
 
-            Wait Until Element Is Visible    xpath=//android.widget.TextView[5]
+            Wait Until Element Is Visible    xpath=//android.widget.TextView[5]    1m
             IF  "${Booking type}"=="รอยืนยันชำระเงิน"
                 Click Element    xpath=//android.widget.TextView[1]
             ELSE IF    "${Booking type}"=="ชำระเงินเสร็จสิ้น"
@@ -54,22 +54,49 @@ TC10_SearchReservationMember
             Click Element    button_search
             
             IF  "${ID card}"=="1709800373243"
-                Wait Until Element Is Visible    txt_status_list
+                Wait Until Element Is Visible    txt_status_list    1m
                 ${Real results}    Get Text    txt_status_list
-            ELSE
-                Wait Until Element Is Visible    android:id/message
-                ${Real results}    Get Text    android:id/message
-            END
-            
-            IF    "${Real results}" == "${Expected result}"
+                IF    "${Real results}" == "${Expected result}"
+                        Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
+                        Write Excel Cell    ${x}    9    value=Pass    sheet_name=Test data
+                        Write Excel Cell    ${x}    10    value=Pass    sheet_name=Test data
+                        Write Excel Cell    ${x}    11    value=No error    sheet_name=Test data
+                        Write Excel Cell    ${x}    12    value=-    sheet_name=Test data
+                ELSE
+                    Take Screenshot    Screenshot/TC10_SearchReservationMember_Result/${TDID}_Fail.jpg
                     Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
-                    Write Excel Cell    ${x}    9    value=Pass    sheet_name=Test data
-                    Write Excel Cell    ${x}    10    value=-    sheet_name=Test data
+                    Write Excel Cell    ${x}    9    value=Fail    sheet_name=Test data
+                    Write Excel Cell    ${x}    10    value=Fail    sheet_name=Test data
+                    Write Excel Cell    ${x}    11    value=Error    sheet_name=Test data
+                    Write Excel Cell    ${x}    12    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                END
             ELSE
-                Take Screenshot    Screenshot/TC10_SearchReservationMember_Result/${TDID}_Fail.jpg
-                Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
-                Write Excel Cell    ${x}    9    value=Fail    sheet_name=Test data
-                Write Excel Cell    ${x}    10    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                Sleep    2s
+                ${element_visible} =    Run Keyword And Return Status    Element Should Be Visible    android:id/message
+                IF  ${element_visible}
+                    ${Real results}=    Get Text    android:id/message
+                    IF    "${Real results}" == "${Expected result}"
+                        Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
+                        Write Excel Cell    ${x}    9    value=Pass    sheet_name=Test data
+                        Write Excel Cell    ${x}    10    value=Pass    sheet_name=Test data
+                        Write Excel Cell    ${x}    11    value=No error    sheet_name=Test data
+                        Write Excel Cell    ${x}    12    value=-    sheet_name=Test data
+                    ELSE
+                        Take Screenshot    Screenshot/TC10_SearchReservationMember_Result/${TDID}_Fail.jpg
+                        Write Excel Cell    ${x}    8    value=${Real results}    sheet_name=Test data
+                        Write Excel Cell    ${x}    9    value=Fail    sheet_name=Test data
+                        Write Excel Cell    ${x}    10    value=Fail    sheet_name=Test data
+                        Write Excel Cell    ${x}    11    value=Error    sheet_name=Test data
+                        Write Excel Cell    ${x}    12    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                    END
+                ELSE
+                    Take Screenshot    Screenshot/TC10_SearchReservationMember_Result/${TDID}_Fail.jpg
+                    Write Excel Cell    ${x}    8    value=ไม่แสดงข้อความแจ้งเตือน    sheet_name=Test data
+                    Write Excel Cell    ${x}    9    value=Fail    sheet_name=Test data
+                    Write Excel Cell    ${x}    10    value=Fail    sheet_name=Test data
+                    Write Excel Cell    ${x}    11    value=Error    sheet_name=Test data
+                    Write Excel Cell    ${x}    12    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                END
             END
             Close Application
         END

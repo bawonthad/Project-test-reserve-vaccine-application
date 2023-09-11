@@ -17,7 +17,7 @@ ${DAY_LIST}           xpath=//android.view.View/android.view.View
 
 *** Test Cases ***
 TC09_ManageSchedule
-    # Start Video Recording    name=Video/TC09_ManageSchedule  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
+    Start Video Recording    name=Video/TC09_ManageSchedule  fps=None    size_percentage=1   embed=True  embed_width=100px   monitor=1
     Open Excel Document    Test data/TC09_ManageSchedule.xlsx    doc_id=Test data
     ${excel}    Get Sheet    Test data
     FOR    ${x}    IN RANGE    2    ${excel.max_row+1}
@@ -50,9 +50,9 @@ TC09_ManageSchedule
             Input Text    txt_user    ${username}
             Input Text    txt_password    ${password}
             Click Element    Clicklogin
-            Wait Until Element Is Visible    android:id/button1
+            Wait Until Element Is Visible    android:id/button1    1m
             Click Element    android:id/button1
-            Wait Until Element Is Visible    Viewall_card
+            Wait Until Element Is Visible    Viewall_card    1m
             Click Element    Viewall_card
             
             IF  "${ScheduleDate}"=="วันในอดีต"
@@ -62,7 +62,7 @@ TC09_ManageSchedule
             ELSE IF    "${ScheduleDate}"=="วันในอนาคต"
                 ${TypeDate}=    future_day
             END
-            Wait Until Element Is Visible    imageView5
+            Wait Until Element Is Visible    imageView5    1m
             Click Element    imageView5
             Select day    ${TypeDate}
             
@@ -81,19 +81,15 @@ TC09_ManageSchedule
             IF  "${TimePeriod1}"=="Checked"
                 Click Element    t1
             END
-
             IF  "${TimePeriod2}"=="Checked"
                 Click Element    t2
             END
-
             IF  "${TimePeriod3}"=="Checked"
                 Click Element    t3
             END
-
             IF  "${TimePeriod4}"=="Checked"
                 Click Element    t4
             END
-
             IF  "${TimePeriod5}"=="Checked"
                 Click Element    t5
             END
@@ -101,36 +97,47 @@ TC09_ManageSchedule
             IF  "${ChannelInputAmount1}"=="InputText"
                 Input Text    edit_no_time1    ${AmountQueueDate}
             END
-
             IF  "${ChannelInputAmount2}"=="InputText"
                 Input Text    edit_no_time2    ${AmountQueueDate}
             END
-
             IF  "${ChannelInputAmount3}"=="InputText"
                 Input Text    edit_no_time3    ${AmountQueueDate}
             END
-
             IF  "${ChannelInputAmount4}"=="InputText"
                 Input Text    edit_no_time4    ${AmountQueueDate}
             END
-
             IF  "${ChannelInputAmount5}"=="InputText"
                 Input Text    edit_no_time5    ${AmountQueueDate}
             END
 
             Click Element    btn_add_schedule
-
-            Wait Until Element Is Visible    android:id/message
-            ${Real results}=    Get Text    android:id/message
-            IF    "${Real results}" == "${Expected result}"
-                Write Excel Cell    ${x}    18    value=${Real results}    sheet_name=Test data
-                Write Excel Cell    ${x}    19    value=Pass    sheet_name=Test data
-                Write Excel Cell    ${x}    20    value=-    sheet_name=Test data
+            
+            Sleep    1s
+            ${element_visible} =    Run Keyword And Return Status    Element Should Be Visible    android:id/message
+    
+            IF  ${element_visible}
+                ${Real results}=    Get Text    android:id/message
+                IF    "${Real results}" == "${Expected result}"
+                    Write Excel Cell    ${x}    18    value=${Real results}    sheet_name=Test data
+                    Write Excel Cell    ${x}    19    value=Pass    sheet_name=Test data
+                    Write Excel Cell    ${x}    20    value=Pass    sheet_name=Test data
+                    Write Excel Cell    ${x}    21    value=No error    sheet_name=Test data
+                    Write Excel Cell    ${x}    22    value=-    sheet_name=Test data
+                ELSE
+                    Take Screenshot    Screenshot/TC09_ManageSchedule_Result/${TDID}_Fail.jpg
+                    Write Excel Cell    ${x}    18    value=${Real results}    sheet_name=Test data
+                    Write Excel Cell    ${x}    19    value=Fail    sheet_name=Test data
+                    Write Excel Cell    ${x}    20    value=Fail    sheet_name=Test data
+                    Write Excel Cell    ${x}    21    value=Error    sheet_name=Test data
+                    Write Excel Cell    ${x}    22    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                END
             ELSE
                 Take Screenshot    Screenshot/TC09_ManageSchedule_Result/${TDID}_Fail.jpg
-                Write Excel Cell    ${x}    18    value=${Real results}    sheet_name=Test data
+                Write Excel Cell    ${x}    18    value=ไม่แสดงข้อความแจ้งเตือน    sheet_name=Test data
                 Write Excel Cell    ${x}    19    value=Fail    sheet_name=Test data
-                Write Excel Cell    ${x}    20    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
+                Write Excel Cell    ${x}    20    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    21    value=Error    sheet_name=Test data
+                Write Excel Cell    ${x}    22    value=ควรแสดงข้อความแจ้งเตือนว่า "${Expected result}"    sheet_name=Test data
             END
             Close Application
         END
@@ -142,7 +149,7 @@ TC09_ManageSchedule
 *** Keywords *** 
 Select day
     [Arguments]    ${date_come_in}
-    Wait Until Element Is Visible    ${HEADER_YEAR}
+    Wait Until Element Is Visible    ${HEADER_YEAR}    1m
     ${CURR_YEAR}    Get Text    ${HEADER_YEAR}
     ${CURR_DATE}    Get Text    ${HEADER_DATE}
     Click Element    ${HEADER_YEAR}
@@ -201,7 +208,7 @@ Select day
                 END
             END
 
-            Wait Until Element Is Visible    ${OK_YEAR_BTN}
+            Wait Until Element Is Visible    ${OK_YEAR_BTN}    1m
             Click Element    ${OK_YEAR_BTN}
             Sleep    1s
             

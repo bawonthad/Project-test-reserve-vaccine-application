@@ -29,14 +29,14 @@ TC04_ReserveVaccine
             Input Text    txt_user    ${username}
             Input Text    txt_password    ${password}
             Click Element    Clicklogin
-            Wait Until Element Is Visible    android:id/button1
+            Wait Until Element Is Visible    android:id/button1    20s
             Click Element    android:id/button1
-            Wait Until Element Is Visible    Add_card
+            Wait Until Element Is Visible    Add_card    10s
             Click Element    Add_card
 
-            Wait Until Element Is Visible    select_VaccineList_item
+            Wait Until Element Is Visible    select_VaccineList_item    10s
             Click Element    select_VaccineList_item
-            Wait Until Element Is Visible    //android.widget.TextView[1]
+            Sleep    1s
             IF  "${Vaccine name}"=="Moderna"
                 Click Element    //android.widget.TextView[1]
             ELSE IF    "${Vaccine name}"=="Sinovac"
@@ -44,28 +44,34 @@ TC04_ReserveVaccine
             END
             
             Click Element    spn_no
+            Sleep    1s
             IF  "${Amount}"=="1"
                 Click Element    //android.widget.TextView[1]
             ELSE IF    "${Amount}"=="2"
                 Click Element    //android.widget.TextView[2]
             END
-
+            
+            Wait Until Element Is Visible    checkBox5
             IF  "${Confirm order}"=="Checked"
                 Click Element    checkBox5
             END
             Click Element    btn_add_reserve
             
-            Wait Until Element Is Visible   android:id/message
+            Wait Until Element Is Visible   android:id/message    10s
             ${Real results}=    Get Text    android:id/message
             IF    "${Real results}" == "${Expected result}"
                 Write Excel Cell    ${x}    9    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    10    value=Pass    sheet_name=Test data
-                Write Excel Cell    ${x}    11    value=-    sheet_name=Test data
+                Write Excel Cell    ${x}    11    value=Pass    sheet_name=Test data
+                Write Excel Cell    ${x}    12    value=No error    sheet_name=Test data
+                Write Excel Cell    ${x}    13    value=-    sheet_name=Test data
             ELSE
                 Take Screenshot    Screenshot/TC04_ReserveVaccine_Result/${TDID}_Fail.png
                 Write Excel Cell    ${x}    9    value=${Real results}    sheet_name=Test data
                 Write Excel Cell    ${x}    10    value=Fail    sheet_name=Test data
-                Write Excel Cell    ${x}    11    value=${Real results}    sheet_name=Test data
+                Write Excel Cell    ${x}    11    value=Fail    sheet_name=Test data
+                Write Excel Cell    ${x}    12    value=Error    sheet_name=Test data
+                Write Excel Cell    ${x}    13    value=${Real results}    sheet_name=Test data
             END
             Close Application
         END
