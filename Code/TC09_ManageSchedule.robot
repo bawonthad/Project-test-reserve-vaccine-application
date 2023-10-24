@@ -133,7 +133,6 @@ TC09_ManageSchedule
                 END
             ELSE
                 Take Screenshot    Screenshot/TC09_ManageSchedule_Result/${TDID}_Fail.jpg
-                Write Excel Cell    ${x}    18    value=ไม่แสดงข้อความแจ้งเตือน    sheet_name=Test data
                 Write Excel Cell    ${x}    19    value=Fail    sheet_name=Test data
                 Write Excel Cell    ${x}    20    value=Fail    sheet_name=Test data
                 Write Excel Cell    ${x}    21    value=Error    sheet_name=Test data
